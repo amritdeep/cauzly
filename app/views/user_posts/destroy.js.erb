@@ -1,0 +1,9 @@
+setTimeout(function(){
+		$("#processing").modal("hide");
+    },0);
+
+$('#user_post_<%= @user_post.id%>').fadeOut(1000);
+
+$('.postsubmit').attr('disabled','disabled');
+
+

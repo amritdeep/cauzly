@@ -1,0 +1,14 @@
+<% if obj.errors.any? %>
+    <div class="alert alert-error">
+      <a class="close" data-dismiss="alert">×</a>
+      <p><% if false%>
+      		<strong><%= pluralize(obj.errors.count, "error") %> prohibited this action:</strong>
+		<% end %>
+      <ul>
+      <% obj.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+      </p>
+    </div>
+  <% end %>

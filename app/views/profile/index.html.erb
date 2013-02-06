@@ -1,0 +1,93 @@
+<div class="well box">
+    <% unless @user.profile.blank? %>
+    <div class="row-fluid">
+        <div class="span9">
+    <div class="">
+        <h2><%= @user.profile.name%></h2>
+        <small> <% if @user.profile.website? %>
+            <%= link_to @user.profile.website,@user.profile.website,:target=>"_blank"%>
+            <%else%>
+            <%= link_to profile_url(@user),profile_path(@user),:target=>"_blank"%>
+            <%end%> </small>
+    </div>
+    </div>
+    <div class="span3">
+    <div class="">
+         <% if current_user%>
+
+    <span class="followlinks_<%= @user.id%>">
+
+        <%= render :partial => "follow/followunfollow_links"%>
+
+    </span>
+ 
+    <% end %>
+        <% if @user.profile.ein? %>
+        <%= link_to "Donate",user_donation_path(@user),:class=>"btn btn-success pull-right"%>
+        <% end %>
+    </div>
+    </div>
+    </div>
+    <hr />
+    <%= simple_format(@user.profile.description) if @user.profile.description?%>
+
+    <br />
+    <%= simple_format(@user.profile.additional_information) if @user.profile.additional_information?%>
+    <% end %>
+
+</div>
+
+  <% unless @user.user_images.blank? %>
+  
+<div class="well box">
+<div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery" >
+                    
+<ul class="thumbnails">
+
+              <% @user.user_images.each do |user_image|%>
+                  <% if user_image.attachment.exists? %>
+        
+    <li>
+    <div class="thumbnail">
+    
+    <%= link_to image_tag(user_image.attachment.url(:thumb)),user_image.attachment(:medium),:rel=>"gallery" ,:class=>""%>
+                    <div class="caption">
+                    
+                    </div>
+                   </div>
+    </li>
+    
+  
+    <% end %>
+    <% end %>
+    </ul>           </div>
+  </div>                      
+    
+<%end%>
+
+
+  
+  <% unless @user.user_videos.blank? %>
+       <div class="well box">
+        <h3>Videos</h3>
+
+  <ul class="thumbnails">
+      <% @user.user_videos.each do |user_video|%>
+          <% if user_video.video_url?%>
+            <li>
+            <div class="thumbnail user_video well">
+                  <%= user_video.video_url_html  %>
+            </div>
+          </li>
+          <% end %>
+      <% end %>
+      </ul>
+      </div>
+     
+  <% end %>
+  <% @share_url= profile_url(@user)%>
+  <% @share_data=" check this out"%>
+<div class="box">
+<%= render :partial => "shared/social_share"%>
+    </div>
+

@@ -1,0 +1,13 @@
+<% unless @donor.nil? %>
+
+	<div class="feedBox">
+	<h2><%= @donor.full_name%></h2>
+	
+
+<%= simple_format(@donor.bio)%>
+	</div>
+	
+<% end %>
+
+
+

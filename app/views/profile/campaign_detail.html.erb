@@ -1,0 +1,33 @@
+<%@url = campaign_url(@campaign.user,@campaign)
+@text = @campaign.title
+%>	   
+
+ <ul class="breadcrumb">
+		    <li>
+		   		<%= link_to "<i class='icon-home'></i>Home".html_safe,root_path%>
+		     	<span class="divider">/</span>
+		    </li>
+		    
+		    <li><%= link_to "Profile".html_safe,profile_path(@user)%>
+		     	<span class="divider">/</span> 
+		    </li>
+		    <li><%= link_to "Campaigns".html_safe,profile_campaigns_path(@user)%>
+		     	<span class="divider">/</span> 
+		    </li>
+		    
+		    <li class="active"><%= @campaign.title %></li>
+		   
+		   
+    	</ul>		    
+
+	<%= render :partial =>"campaigns/campaign_detail"%>
+	
+<%@share_url=campaign_url(@campaign) %> 
+    <%@share_date=""%>
+    
+    <%@share_data=@campaign.title unless @campaign.title.blank? %>
+    
+    <div class="box">
+<%= render :partial => "shared/social_share"%>
+    </div>
+

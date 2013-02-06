@@ -1,0 +1,40 @@
+<%= div_for campaign do %>
+	<div class=" well box">
+		<div class="row-fluid">
+				<div class="span2">
+					<% if campaign.default_image && campaign.default_image.attachment.exists?%>
+					<%=link_to image_tag(campaign.default_image.attachment(:small)),campaign_path(campaign)%>
+					<%else%>
+  					<%= link_to image_tag("no-img60.png"),campaign_path(campaign) %>
+  					<%end%>
+  				
+  			</div>
+  			
+		<div class="span7 wordwrap">
+		<h5><%= link_to campaign.title,campaign_path(campaign)%>
+		</h5>
+		<p><%= truncate(campaign.description,:length=>170)%>
+			
+			<%= link_to "View Detail" ,campaign_path(campaign),:class=>""%>
+		</p>
+		<em><small><%= campaign.user.address.city_state unless campaign.user.address.blank?%></small></em>
+		
+		 				
+		</div>	
+			<div class="span3">
+				<div class="">
+		<div class="alert alert-error">			
+						<small class=""><%=  distance_of_time_in_words(Time.now,campaign.end_date.to_date) %> left</small>
+						</div>
+		
+							<div class="well-small">Category :
+		<%= link_to campaign.campaign_category.name,filter_category_sort_campaigns_path("expiring",campaign.campaign_category),:class=>"",:title=>"Campaign Category : #{campaign.campaign_category.name} "%>
+		
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>			
+										
+<% end %>

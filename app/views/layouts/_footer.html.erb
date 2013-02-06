@@ -1,0 +1,70 @@
+
+   </div>
+</div><!-- End of wrapper -->
+    <div class="modal hide " id="processing">
+    	<div class="modal-header">
+    		<a class="close" data-dismiss="modal">×</a>
+    		<h3>&nbsp;</h3>
+    	</div>
+    	<div class="modal-body center">
+    		<%= image_tag("icons/loading.gif")%>
+    	</div>
+    	<div class="modal-footer">
+    		<a class="close btn btn-primary" data-dismiss="modal">Close</a>
+    	</div>
+    </div>
+		
+
+
+	<div id="modal-gallery" class="modal modal-gallery hide fade loading">
+			    <div class="modal-header">
+			        <a class="close" data-dismiss="modal">&times;</a>
+			        <h3 class="modal-title"></h3>
+			    </div>
+			    <div class="modal-body"><div class="modal-image"></div></div>
+			    <div class="modal-footer">
+			        <a class="btn btn-info modal-prev pull-left"><i class="icon-arrow-left"></i> Previous</a>
+			        <a class="btn btn-primary modal-next">Next <i class="icon-arrow-right"></i></a>
+			      
+			        <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000"><i class="icon-play icon-white"></i> Slideshow</a>
+			      <a class="btn btn-primary" data-dismiss="modal"><i class="icon-remove"></i>Close</a>
+			    </div>
+	</div>
+	
+
+
+
+
+
+ 
+<div class="footer clearfix">
+    <div class="wrapper">
+        <div class="footer-rtPanel fright">
+            <ul>
+                
+                  <%unless Page.all.blank?%> 
+                <% Page.p_order.each do |page|%>
+              
+                 <li><%=link_to page.page_name,pages_contents_path(page)%></li>
+                
+                <%end%>
+        <%end%>
+              
+              
+            </ul>     
+            <p class="fright">Copyright © 2012 Cauzly LLC. All rights reserved.</p>
+        </div><!-- End of footer-rtPanel -->
+        
+        <div class="footer-lftPanel fleft">
+           <%= link_to image_tag("follow-facebook.png",:border=>0,:style=>"width:30;height:35px"),"http://facebook.com/cauzly",:target=>"_blank"%>
+        <%= link_to image_tag("twitter-100x100.png",:border=>0,:style=>"width:30;height:35px"),"http://twitter.com/cauzly",:target=>"_blank"%>
+        <%= link_to image_tag("pin.png",:border=>0,:style=>"width:30;height:35px"),"http://Pinterest.com/Cauzly",:target=>"_blank"%>
+        <%= link_to image_tag("you.png",:border=>0,:style=>"width:30;height:35px"),"http://YouTube.com/CauzlyVideos",:target=>"_blank"%>
+      <div class="searchNon">
+        <%= link_to "Search Nonprofits", find_nonprofits_path%>  
+    </div>
+        </div><!-- End of footer-lftPanel -->
+    </div><!-- End of footer -->
+</div><!-- End of wrapper -->    
+</body> 
+</html>

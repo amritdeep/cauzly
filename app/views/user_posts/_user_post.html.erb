@@ -1,0 +1,37 @@
+<%=div_for user_post do %>
+ <div class="wordwrap well box ">
+	<div class="row-fluid">
+ 			<div class="span2">
+ 				<%= link_to get_avatar_small(user_post.user),profile_path(user_post.user),:class=>"" %>
+								
+ 				</div>
+	<div class="span8">
+	  <strong>
+     <% if user_post.user == current_user %>
+      
+      <%= user_post.user.profile.name unless user_post.user.profile.blank?%>
+     <% else %>
+      <%= user_post.user.profile.name unless user_post.user.profile.blank?%> 
+  <%end%>
+ </strong>
+ 
+  <div class="status_content">
+  		<%= user_post.post_html%>
+  </div>
+ 
+  <%= link_to 'Remove', user_post_path(user_post), :method => :delete,:title=>"Remove", :class => "btn-primary delete_post ajax btn btn-mini", :remote => true if user_post.user_id == current_user.id%>
+  
+   </div>
+   <div class="span2">
+ <small class="pull-right"><em> <i class="icon-time"></i> <%= time_ago_in_words(user_post.created_at)%> ago</em></small>
+   
+ 
+   
+   </div>
+   					
+				</div>
+				
+				</div>
+	
+  <%end%>
+ 

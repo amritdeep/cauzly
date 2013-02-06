@@ -1,0 +1,74 @@
+<h3><%= link_to "Users" ,admin_users_path %>  &raquo; Edit user</h3>
+
+<div class="form-horizontal">
+	
+		<%= form_for([:admin,@user]) do |f| %>
+  		
+		<%= render :partial => "shared/validation_msg",:locals=>{:obj=>@user} %>
+		 			
+		 		
+		 			<div class="control-group">	
+				 		<%= f.label :email,:class=>"control-label" %>
+				 		<div class="controls">
+				 			
+		  					<%= f.email_field :email,{:class=>"input-xlarge",:placeholder => "Email",:required => true,:disabled=>true} %>
+		  					
+		  				</div>
+		 			</div>
+		 			
+				    	<div class="control-group">	
+				 		<%= f.label :profile_name,:class=>"control-label" %>
+				 		<div class="controls">
+				 			
+		  					<%= f.text_field :profile_name,{:class=>"input-xlarge",:placeholder => "username"} %>
+		  					<input type="checkbox" onclick=" if(document.getElementById('user_profile_name').disabled==true){document.getElementById('user_profile_name').disabled=false;}else{document.getElementById('user_profile_name').disabled=true}" /> If you don't want to update username then tick the checkbox.		  					
+		  				</div>
+		 			</div>
+		 			
+				    	   <%=f.fields_for :profile do |pf|%>
+		 			<div class="control-group">	
+				 		<%= pf.label :name,:class=>"control-label" %>
+				 		<div class="controls">
+				 			
+		  					<%= pf.text_field :name,{:class=>"input-xlarge",:placeholder => "Name"} %>
+		  					
+		  				</div>
+		 			</div>
+				<div class="control-group">
+				    <%= pf.label :website ,:class=>"control-label"%>
+				 	<div class="controls">
+				    	<%= pf.url_field :website, :class=>"input-xlarge" %>
+				    </div>
+				  </div>
+		 			<div class="control-group">	
+				 		<%= pf.label :description,:class=>"control-label" %>
+				 		<div class="controls">
+				 			
+		  					<%= pf.text_area :description,{:class=>"input-xxlarge",:placeholder => "Description/About you",:size =>"45x3"} %>
+		  					
+		  				</div>
+		 			</div>
+		 			
+				<div class="control-group">
+				    <%= pf.label "Additional Info",:class=>"control-label" %>
+				    <div class="controls">
+				    <%= pf.text_area :additional_information,{:placeholder=>"",:size => "66x10",:maxlength=>"2000", :class=>"input-xxlarge"} %>
+				    </div>
+				  </div>
+		 			<%end%>
+				    	
+				    <div class="control-group">
+							<%=  f.label "Select Type of user" ,:class=>"control-label"%>
+				  	  		<div class="controls">
+  								<%= f.collection_select :user_type_id ,UserType.user_types_except_non_profit,:id,:name,{},{:required => true} %>
+				  			</div> 
+				    </div>
+				 
+				    <div class="control-group">
+					  	<label class="control-label">&nbsp;</label>
+					  	<div class="controls">
+					  		<%= f.submit "Update" ,:class=>"btn-primary",:disable_with => "Processing..." %>
+					   </div>
+					</div>	
+		<% end %>
+	</div>

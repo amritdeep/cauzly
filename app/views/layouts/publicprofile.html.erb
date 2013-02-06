@@ -1,0 +1,59 @@
+<%= render :partial =>"layouts/header"%>
+<div class="leftPanel">
+	<div class= "box">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="user_details wordwrap">
+					<div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
+						<%= link_to get_avatar_thumb(@user),get_avatar_original(@user),:rel=>"gallery"%>
+					</div>
+					<div class="user_info">
+						<%= @user.profile.name if !@user.profile.blank? && @user.profile.name?%></li>
+
+						<% unless @user.address.blank? %>
+						<br/>
+						<span> <%= @user.address.city_state.camelize unless @user.address.city_state.nil? %> </span>
+						<%end%>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div class="row-fluid">
+			<div class="span12">
+				<%= render :partial => "shared/public_profile_nav"%>
+				<ul class="nav nav-list">
+					<li class="nav-header">
+						Social Profiles
+					</li>
+				</ul>
+				<% user = @user
+				unless user.social_link.blank? %>
+				<div class="well-small">
+					<%= link_to image_tag("socialicons/facebook24.png") ,user.social_link.facebook ,:target => "_blank",:title=>"Facebook"  if user.social_link.facebook? %>
+					<%= link_to image_tag("socialicons/twitter24.png") ,user.social_link.twitter ,:target => "_blank",:title=>"Twitter" if user.social_link.twitter? %>
+					<%= link_to image_tag("socialicons/google24.png") ,user.social_link.googleplus ,:target => "_blank",:title=>"Google Plus" if user.social_link.googleplus? %>
+					<%= link_to image_tag("socialicons/linkedin24.png") ,user.social_link.linkedin ,:target => "_blank" ,:title=>"LinkedIn" if user.social_link.linkedin? %>
+					<br />
+					<br />
+					<%= link_to image_tag("socialicons/youtube24.png") ,user.social_link.youtube ,:target => "_blank" ,:title=>"YouTube" if user.social_link.youtube? %>
+					<%= link_to image_tag("socialicons/pinterest24.jpeg") ,user.social_link.pinterest ,:target => "_blank",:title=>"Pinterest"  if user.social_link.pinterest? %>
+					<%= link_to image_tag("socialicons/foursquare24.png") ,user.social_link.foursquare ,:target => "_blank",:title=>"Foursquare"  if user.social_link.foursquare? %>
+					<%= link_to image_tag("socialicons/blog24.png") ,user.social_link.blog ,:target => "_blank",:title=>"Blog Url"  if user.social_link.blog? %>
+				</div>
+				<% end %>
+			</div>
+		</div>
+		<% if @user.is_non_profit?%>
+		<div class="row-fluid">
+			<div class="alert alert-info"><h3>Raised : <strong><%= number_to_currency(@user.total_raised,:precision=>2)%></strong></h3>
+				</div>
+		</div>
+		<%end%>
+	
+	</div>
+</div>
+<div class="rightPanel">
+	<%= yield %>
+</div>
+<%= render :partial => "layouts/footer"%> 

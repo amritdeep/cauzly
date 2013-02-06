@@ -1,0 +1,103 @@
+<%= render :partial =>"layouts/header"%>
+<div class="leftPanel">
+    <div class= "box">
+      
+
+     
+        <div class="row-fluid">
+    <div class="span12">
+        
+        
+        <div class="user_details wordwrap">
+               <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
+	<%= link_to get_avatar_thumb(@user),get_avatar_original(@user),:rel=>"gallery"%>
+         </div>  
+                <div class="user_info">
+                    <h3><%= @user.profile.name if !@user.profile.blank? && @user.profile.name?%></h3>
+                 
+        <% unless @user.address.blank? %>
+       
+        <span>  
+        <%= @user.address.city_state.camelize unless @user.address.city_state.nil?  %>
+        
+      
+       
+
+       </span>
+        <% end %>
+                </div>
+            </div><!-- End of user_details -->
+        </div>
+        </div>
+        
+        
+<br />
+<div class="row-fluid">
+    <div class="span12">
+        <% if user_signed_in? && current_user.is_admin? %>
+        <% if @user== current_user%>
+        <%= render :partial =>"shared/admin_nav" if user_signed_in? && current_user.is_admin?%>
+        <%end%>
+
+        <%end%>
+        <%= render :partial => "shared/user_profile_nav"  if current_user && !current_user.is_admin? && controller_name != "profile"  %>
+
+        <%
+        user = @user
+        unless user.social_link.blank? %>
+        <ul class="nav nav-list">
+
+            <li class="nav-header">
+                Social Profiles
+            </li>
+
+        </ul>
+        <div class="well-small">
+            <%= link_to image_tag("socialicons/facebook24.png") ,user.social_link.facebook ,:target => "_blank",:title=>"Facebook"  if user.social_link.facebook? %>
+            <%= link_to image_tag("socialicons/twitter24.png") ,user.social_link.twitter ,:target => "_blank",:title=>"Twitter" if user.social_link.twitter? %>
+            <%= link_to image_tag("socialicons/google24.png") ,user.social_link.googleplus ,:target => "_blank",:title=>"Google Plus" if user.social_link.googleplus? %>
+            <%= link_to image_tag("socialicons/linkedin24.png") ,user.social_link.linkedin ,:target => "_blank" ,:title=>"LinkedIn" if user.social_link.linkedin? %>
+            <br />
+            <br />
+            <%= link_to image_tag("socialicons/youtube24.png") ,user.social_link.youtube ,:target => "_blank" ,:title=>"YouTube" if user.social_link.youtube? %>
+            <%= link_to image_tag("socialicons/pinterest24.jpeg") ,user.social_link.pinterest ,:target => "_blank",:title=>"Pinterest"  if user.social_link.pinterest? %>
+            <%= link_to image_tag("socialicons/foursquare24.png") ,user.social_link.foursquare ,:target => "_blank",:title=>"Foursquare"  if user.social_link.foursquare? %>
+            <%= link_to image_tag("socialicons/blog24.png") ,user.social_link.blog ,:target => "_blank",:title=>"Blog Url"  if user.social_link.blog? %>
+
+        </div>
+
+        <% end %>
+
+        <% if @user.profile_percent != 100 %>
+        <br />
+        <div class="row-fluid">
+            <div class="span4">
+                <div class="progress progress-striped">
+                    <div class="bar" style="width: <%= @user.profile_percent %>%; color:#000;">
+                        <%= @user.profile_percent %>%
+                    </div>
+
+                </div>
+                </div>
+                <div class="span8">
+                    profile completeness
+                </div>
+            </div>
+            <% end %>
+
+        </div>
+</div>
+</div>
+    </div>
+
+    <div class="rightPanel">
+
+        <div id="rcontainer" class="">
+
+            <%= render :partial=>"dashboard/notupdated_info"%>
+            <%= yield %>
+
+        </div>
+    </div>
+
+    <%= render :partial => "layouts/footer"%>

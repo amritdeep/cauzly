@@ -1,0 +1,33 @@
+<div class="row-fluid">
+	<div class="form-horizontal">
+	
+		<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+		
+	<fieldset>
+ 		<legend>Forgot your password?</legend>
+		
+			  <%= devise_error_messages! %>
+				 	<div class="control-group">	
+				 		<%= f.label :email,:class=>"control-label" %>
+				 		<div class="controls">
+		  					<%= f.email_field :email,{:placeholder => "Your Email",:required => true} %>
+		  				</div>
+		 			</div>
+				  	<div class="control-group">
+					  	<label class="control-label">&nbsp;</label>
+					  	<div class="controls">
+					  		<%= f.submit "Send me reset password instructions" %>
+					    	<%= render "links" %>
+						</div>
+					</div>
+			<div class="control-group">
+				<label class="control-label">&nbsp;</label>
+				<div class="controls">
+			 		<%= link_to "Login with facebook", '/auth/twitter' ,:class=>"btn btn-primary" %> 
+		  			<%= link_to "Login with twitter", '/auth/facebook' ,:class=>"btn btn-primary"  %>
+		   		</div> 
+			</div>
+		</fieldset>
+		<% end %>
+	</div>
+</div>

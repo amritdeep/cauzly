@@ -1,0 +1,87 @@
+<%@url = campaign_url(@campaign.user,@campaign)
+@text = @campaign.title
+%>	   
+<div class="leftPanel">
+    <div class="well box">
+		<div class="">
+			<ul class="nav nav-list">
+	   			
+				 <li class="nav-header"><%= @campaign.title %></li>
+				 
+				 <li class="divider"></li>
+				 <li>Total Raised : <%= number_to_currency(@campaign.total_raised,:precision => 2)%></li>
+				 <li class="divider"></li>
+				 <li>
+			    <% if @campaign.end_date>Date.today %>
+                        <span class="alert"> End date <strong> <%=  @campaign.end_date.strftime("%m/%d/%Y")  %></strong></span>
+                        <% end %>
+                        
+                        <% unless @campaign.end_date>Date.today %>
+                        <span class="alert"> Ended at : <strong> <%=  @campaign.end_date.strftime("%m/%d/%Y")  unless @campaign.end_date>Date.today %></strong></span>
+                        <% end %>
+                    </li>  
+                <li class="divider"></li>  
+				</ul>
+					
+		</div>
+		<div class="">
+			
+		
+								 <ul class="nav nav-list">
+									<li class="nav-header">Campaign Creator</li>
+								 	<li class="divider"></li>
+								 	<li>
+								<% unless @user.user_logo.nil? %>
+                            <% if @user.user_logo.attachment.exists?%>
+								<div>
+									<%= image_tag(@user.user_logo.attachment(:logo)) %>
+								</div>
+								        
+                            <% end %>
+                        <% end %>
+								</li>
+							    	<li class="nav-header wordwrap"><%= link_to @user.profile.name,profile_path(@user) if !@user.profile.blank? && @user.profile.name?%></li>
+									<% unless @user.address.blank? %>
+							  	 		<li><%= @user.address.full_address %></li>
+							  		<% end %>
+								</ul>
+								
+						
+		</div>
+		</div>	
+	</div>
+	<div class="rightPanel">	
+		<ul class="breadcrumb">
+			    <li>
+			   		<%= link_to "<i class='icon-home'></i>Home".html_safe,root_path%>
+			     	<span class="divider">/</span>
+			    </li>
+			    <li><%= link_to "Campaigns".html_safe,campaigns_path%>
+			     	<span class="divider">/</span> 
+			    </li>
+			     <li><%= link_to @campaign.campaign_category.name,by_category_campaigns_path(@campaign.campaign_category)%>
+			     	<span class="divider">/</span> 
+			    </li>
+			    
+			    <li class="active"><%= @campaign.title %></li>
+				   
+			   
+	    	</ul>
+	
+	
+	<%= render :partial =>"campaigns/campaign_detail"%>
+	
+<%@share_url=campaign_url(@campaign) %> 
+<%@share_data=""%>
+<%@site_name= @campaign.title unless @campaign.title.blank?%>
+<% @share_description = truncate(@campaign.description,:length=>250) if @campaign.description? %>
+    
+<%@share_data = @campaign.title unless @campaign.title.blank? %>
+<div class="box">
+	<%= render :partial => "shared/social_share"%>
+</div>
+
+	
+	</div>
+
+

@@ -1,0 +1,44 @@
+<h3><%= @result['organization_name']%></h3>
+<%= @result['address_full']%>
+<hr />
+<%= link_to "Donate" ,{},:class => "btn btn-success"%>
+<%= debug @result%>
+<script language="javascript"type="text/javascript">function FG_4ccb04fb46c30_loadScript(){var fgScriptUrl='http://donate.firstgiving.com/dpa/static/js/site/fg_consumer_donation_opener.min.js';var script=document.createElement("script");script.type="text/javascript";if(script.readyState){script.onreadystatechange=function(){if(script.readyState=="loaded"||script.readyState=="complete"){script.onreadystatechange=null}}}else{script.onload=function(){}}script.src=fgScriptUrl;document.body.appendChild(script)}FG_4ccb04fb46c30_loadScript();</script> 
+
+<!-- Basic information about this charity. You may remove this DIV if you do not need it displayed -->
+<div style="width: 200px;"><div id="fgOrganizationName"><strong><%= @result['organization_name']%></strong></div>SUGAR LAND77487<br /><strong>EIN:</strong>760324875</div>
+<!-- Donation Button block -->
+<div id="fg_donation-button-block">
+<!-- The Donation Button. You can restyle this to fit with your site design by removing the inline style elements. -->
+<a href="javascript:void(0)" id="<%= @result['uuid']%>" class="fg-donation-button-4ccb04fb46c30" onclick="FG_DONATE_BUTTON.openDonationWindow(this, 'https://donate.firstgiving.com'); return false;" style="text-indent: -999999px; background: url(http://donate.firstgiving.com/dpa/static/img/consumer_donation_button.png) no-repeat; width: 202px; height: 62px; display: block; pointer: cursor; outline: 0;">Donate Now</a>
+<!-- Get this FirstGiving Donation Button block. You may remove this if it does not fit with your design. -->
+<div id="fg_get-this-action" style="width: 200px; margin-top: 5px;">
+<a href="javascript:void(0)" style="text-decoration: none;">
+<span style="background: url(http://donate.firstgiving.com/dpa/static/img/consumer_donation_button.png) no-repeat -15px -62px; width: 15px; height: 20px; float: left; margin-left: 15px;"></span>
+<span style="vertical-align: middle; color: #666666; font-size: 12px; font-weight: bold; margin-left: 10px; line-height: 18px;">Get This FirstGiving Button</span>
+</a>
+</div>
+</div>
+
+<div id="fgGraphWidgetContainer"></div>
+
+    <script>
+
+    var FG_GRAPHWIDGET_PARAMS = {
+    	
+
+    results : {
+
+    selectaction : function(uuid, charity_name, ein) {
+
+    window.location.href = 'api_nonprofit/'+ein;
+
+    }
+
+    }
+
+    };
+
+    </script>
+
+    <script src="http://assets.firstgiving.com/graphwidget/static/js/fg_graph_widget.min.js"></script>

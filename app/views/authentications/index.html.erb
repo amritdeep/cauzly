@@ -1,0 +1,14 @@
+
+
+
+<h3>Your Social Connections</h3>
+<hr />
+
+<% for provider in @associated_providers %>
+  <%= provider %> is associated with this account <br />
+<% end %>
+
+<% for provider in @not_yet_associated_providers %>
+  <strong><%= provider.humanize %></strong> is not associated with your account. <%= link_to "Associtate with #{provider}", "/auth/#{provider}" %> <br />
+<% end %>
+

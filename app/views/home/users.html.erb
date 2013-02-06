@@ -1,0 +1,31 @@
+<div class="fullWidth">
+	<h3>Users</h3>
+	<% unless @users.nil?%>
+		<% @users.each do |user| %>
+			<article>
+			    <div class="avtar">
+				    <% unless user.user_logo.nil? %>
+						<%= link_to(image_tag(user.user_logo.attachment(:thumb)),profile_path(user.url_param)) %>
+					<% else %>
+						<%= link_to(image_tag("no-img100.png"),profile_path(user.url_param)) %>
+					<%end%>
+				</div>
+			    <div class="divCharity">
+			    	<div style="text-align: right"><h3><%= user.user_type.name %></h3></div>
+						<% unless user.profile.nil? %>
+		                  	<h3><%= link_to user.profile.name ,profile_path(user.url_param),:class=>"" %></h3>
+		                    <p><%= user.profile.description.truncate(300)%></p>
+			        		<% if user.profile.website? %>
+			        			<a href="<%= user.profile.website%>" target = "_blank"><%= user.profile.website %></a>
+							<%end%>
+		    		   	<% else %>
+						   <h3>&nbsp;</h3>
+					      	<p>&nbsp;</p>
+						<% end %>
+						<p align="right"><%= link_to "View Detail",profile_path(user.url_param),:class=>"read-more" %></p>                
+				</div><!-- .divCharity -->
+		    </article>
+		 <% end %>
+		<%= will_paginate @users%>
+	<% end %>
+</div>

@@ -1,0 +1,12 @@
+$('#follower_<%= @user_to_be_blocked.id -%>').remove();
+
+$('#processing .modal-body').html('<div class="alert alert-success">Follower blocked Successfully</div>');
+
+setTimeout(function(){
+		$("#processing").modal("hide");
+		$('#processing .modal-body').html('<%= image_tag("icons/loading.gif")%>');
+    }, 1000);
+
+// to enable modal popup after in ajax rendered contents
+//$('a.ajax').click(function(){$('#processing').modal('show')})
+

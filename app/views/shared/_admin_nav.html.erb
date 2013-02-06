@@ -1,0 +1,25 @@
+<div class="DashLink">
+
+    <ul class="breadcrumb">
+
+		
+	<li><%= link_to "Admin".html_safe ,admin_dashboard_path%><span class="divider">|</span></li>
+	
+	<li><%= link_to "Users".html_safe ,admin_users_path%><span class="divider">|</span></li>
+    <li><%= link_to "Featured users".html_safe ,admin_featured_users_path%><span class="divider">|</span></li>
+    
+	<li><%= link_to "Campaigns".html_safe,admin_campaigns_path %><span class="divider">|</span></li>
+    <li><%= link_to "Featured Campaigns".html_safe,featured_campaigns_admin_campaigns_path %><span class="divider">|</span></li>
+    
+	
+	<% if false%><li><%= link_to "<i class='icon-address'></i>Cities".html_safe,admin_cities_path %></li><% end %>
+	<li><%= link_to "Donations(cause)".html_safe,admin_individual_donation_path %><span class="divider">|</span></li>
+	<li><%= link_to "Donations(unreg Cause)".html_safe,admin_api_nonprofitdonation_path %><span class="divider">|</span></li>
+	<li><%= link_to  "Donations(Campaign)".html_safe,admin_campaign_donation_path%><span class="divider">|</span></li>
+	<li><%= link_to  "Pages".html_safe,admin_pages_path%><span class="divider">|</span></li>
+	<li><%= link_to "Newsletters".html_safe,admin_news_letters_path %><span class="divider">|</span></li>
+    <li><%= link_to "Reserved Username".html_safe,admin_reserved_usernames_path %></li>
+    
+		
+	</ul>
+</div>

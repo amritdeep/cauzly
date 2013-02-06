@@ -1,0 +1,75 @@
+<div class="form-horizontal">
+	
+<%= form_for(@social_link,:url => social_link_update_path,:method => :post) do |f| %>
+  <fieldset><legend>Social Profile Urls</legend>
+  <%= render :partial => "shared/validation_msg",:locals=>{:obj=>@social_link} %>
+ <div class="control-group" >
+     
+    <%= f.label :facebook,image_tag("FB16.png"),:class=>"control-label"%>
+    <div class="controls">
+    <%= f.url_field :facebook,{:placeholder=>"Your Facebook url",:class =>"input-xlarge"} %>
+    </div>
+    </div>
+    
+    <div class="control-group">
+    <%= f.label :twitter ,image_tag("twitter16.png"),:class=>"control-label"%>
+    <div class="controls">
+    <%= f.url_field :twitter,{:placeholder=>"Your Twitter url",:class =>"input-xlarge"} %>
+    </div>
+    </div>
+    
+    <div class="control-group">
+    <%= f.label :googleplus ,image_tag("g+16.png"),:class=>"control-label"%>
+    <div class="controls">
+    <%= f.url_field :googleplus ,{:placeholder=>"Your Googleplus url",:class =>"input-xlarge"} %>
+    </div>
+    </div>
+  
+  <div class="control-group">
+     <%= f.label :linkedin,image_tag("linkedin16.png"),:class=>"control-label" %>
+     <div class="controls">
+    <%= f.url_field :linkedin ,{:placeholder=>"Your LinkedIn url",:class =>"input-xlarge"} %>
+    </div>
+  </div>
+ 
+ <div class="control-group">
+    <%= f.label :youtube,image_tag("youtube16.png"),:class=>"control-label" %>
+    <div class="controls">
+    <%= f.url_field :youtube ,{:placeholder=>"Your Youtube url",:class =>"input-xlarge"} %>
+    </div>
+  </div>
+ 
+ <div class="control-group">
+    <%= f.label :pinterest,image_tag("Pinterest.png"),:class=>"control-label" %>
+    <div class="controls">
+    <%= f.url_field :pinterest,{:placeholder=>"Your Pinterest url",:class =>"input-xlarge"} %>
+    </div>
+  </div>
+  
+ <div class="control-group">
+    <%= f.label :foursquare,image_tag("Foursquare16.png"),:class=>"control-label" %>
+    <div class="controls">
+    <%= f.url_field :foursquare,{:placeholder=>"Your Foursquare url",:class =>"input-xlarge"} %>
+    </div>
+ </div>
+ 
+ <div class="control-group">
+ 	<div class="control-label">
+    <%= f.label :blog ,image_tag("blogicon16.png")%>
+    </div>
+    <div class="controls">
+    <%= f.url_field :blog,{:placeholder=>"Your Blog url",:class =>"input-xlarge"} %>
+  </div>
+  </div>
+  
+ 
+  <div class="form-actions">
+  	
+    
+    	<%= f.submit "Update" %>
+    
+  </div>
+  </fieldset>
+<% end %>
+</div>
+

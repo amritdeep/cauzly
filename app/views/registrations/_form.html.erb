@@ -1,0 +1,80 @@
+<div class="form-horizontal">
+		
+		
+		<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name),:validation=>true,:class=>"myform") do |f| %>
+  		
+		
+		<%= devise_error_messages! %>
+		
+					<% if session[:valid_firstgiving_user]%>
+					
+				
+				 
+				 					<div class="control-group">	
+				 		<strong>You will be registered as: <br /><%= session[:valid_firstgiving_user]["organization_name"] %> and EIN is : <%= session[:valid_firstgiving_user]["government_id"] %>
+				 		</strong> <%= link_to "Not You?",not_me_url%>
+				 		
+		 			</div>
+		 			<%else%>
+		 			<%=f.fields_for :profile do |pf|%>
+		 			<div class="control-group">	
+				 		<%= pf.label :name,:class=>"control-label" %>
+				 		<div class="controls">
+				 			
+		  					<%= pf.text_field :name,{:class=>"input-xlarge",:placeholder => "Your Name",:required => true} %>
+		  					
+		  				</div>
+		 			</div>
+		 			<%end%>
+		 			<%end%>
+		 			
+		 			
+		 			<div class="control-group">	
+				 		<%= f.label :email,:class=>"control-label" %>
+				 		<div class="controls">
+				 			<% if controller_name == "registrations"%>
+		  					<%= f.email_field :email,{:class=>"input-xlarge",:placeholder => "Your Email",:required => true} %>
+		  					<%else%>
+		  					<%= f.email_field :email,{:class=>"input-xlarge",:placeholder => "Your Email",:required => true,:value=>""} %>
+		  					<%end%>
+		  				</div>
+		 			</div>
+		 			<div class="control-group">
+		 				<%= f.label :password ,:class=>"control-label"%>
+		  				<div class="controls">
+		  					<%= f.password_field :password,{:class=>"input-xlarge",:placeholder=>"Your password",:required => true} %>
+		  				</div>
+		  			</div>
+		  		  		<div class="control-group">
+							<%= f.label :password_confirmation,:class=>"control-label" %>
+				  	  		<div class="controls">
+  								<%= f.password_field :password_confirmation,{:class=>"input-xlarge",:placeholder=>"Confirm your password",:required => true} %>
+				    		</div> 
+				    	</div>
+				    	
+				    	
+				    	<% if !session[:valid_firstgiving_user]%>
+				    	
+				    <div class="control-group">
+							<%=  f.label "Select Type of user" ,:class=>"control-label"%>
+				  	  		<div class="controls">
+  								<%= f.collection_select :user_type_id ,UserType.user_types_except_non_profit,:id,:name,{},{:class=>"input-xlarge",:required => true} %>
+				  			</div> 
+				    </div>	
+				    <% end %>	
+				  	
+				  	<div class="control-group">
+					  	<label class="control-label">&nbsp;</label>
+					  	<div class="controls">
+					  		<%= f.submit "SIGNUP NOW" ,:class=>"btn memberForm",:disable_with => "Processing..." %>
+					   </div>
+					</div>
+				<div class="control-group">
+					  	<label class="control-label">&nbsp;</label>
+					  	<div class="controls">
+					  	<%= render :partial => "devise/shared/links" %>
+					   </div>
+					</div>
+			
+		<% end %>
+	</div>

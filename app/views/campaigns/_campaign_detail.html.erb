@@ -1,0 +1,77 @@
+	<div class="well box">
+		<div class="row-fluid">
+			<div class="span9">
+					<h3><%= @campaign.title%></h3>
+						
+						
+				</div>
+			<div class="span3">
+					<div class="btn-group pull-right">
+				    		<% if @campaign.is_active %><%= link_to "Donate",campaign_donation_path(@campaign),:class=>"btn btn-success"%> <%end%>
+				    	
+							<% if current_user && @campaign.user == current_user%>
+							    	<a class="btn  btn-primary dropdown-toggle" data-toggle="dropdown" href="#">Action<span class="caret"></span></a>
+							    	<ul class="dropdown-menu">
+							    			<li><%= link_to "<i class='icon-film'></i><i class='icon-picture'></i>Add Image And video".html_safe, user_campaign_path(@campaign)%></li> 
+											<li><%= link_to "<i class='icon-pencil'></i>Edit".html_safe, edit_user_campaign_path(@campaign) %></li> 
+									    	<li><%= link_to "<i class='icon-remove'></i>Remove".html_safe, user_campaign_path(@campaign), confirm: 'Are you sure?', method: :delete %></li>
+							    	</ul>
+							<%end%>
+				    </div>
+			  </div>
+
+			  			</div>
+		<hr />
+		<div class="row-fluid">
+		    <div class ="span12">
+		        
+		           <div class="wordwrap"><%= simple_format(@campaign.description)%></div>
+		    </div>
+		    
+</div>
+		</div>
+
+		<div class="well box">
+		<div class="row-fluid">
+			<div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
+				<ul class="thumbnails">
+						<% unless @campaign.campaign_images.blank? %>
+				 			  	<% @campaign.campaign_images.each do |image| %>
+								  	<% if image.attachment.exists?%>
+									  	<li>
+									  		<div class="thumbnail">
+									  			<%= link_to image_tag(image.attachment(:thumb)),image.attachment.url(:original),:rel=>"gallery"%>
+									  		</div>
+								 		</li>
+								  	<%end%>
+							  	<%end%> 
+						  	<%end%>
+					 	<% unless @campaign.campaign_videos.blank? %>
+						  	<% @campaign.campaign_videos.each do |video| %>
+							  	<% if video.video_url?%>
+									<li>
+									  	<div class="thumbnail">
+									  		<div class= "user_videobb center"> 
+												<%= link_to image_tag("youtubeplayer.jpeg"),"#videogallery_#{video.id}",:data=>{:toggle=>"modal"},:style=>"width:130px;" %>
+											</div>
+											<div id="videogallery_<%= video.id%>" class="modal hide fade">
+											    <div class="modal-header">
+											       <a class="close" data-dismiss="modal">&times;</a>
+											        <h3 class="modal-title">&nbsp;<%= video.video_title  %></h3>
+											    </div>
+											    <div class="modal-body center"><%= video.video_url_html%></div>
+											    <div class="modal-footer">         
+											      <a class="btn btn-primary" data-dismiss="modal"><i class="icon-remove"></i>Close</a>
+											    </div>
+											</div>
+									  </div>
+									</li>
+							  	<%end%>
+						  	<%end%> 
+					  <%end%>
+				 </ul>
+		 	</div>
+		</div>
+		
+	</div>
+	

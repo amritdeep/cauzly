@@ -1,0 +1,190 @@
+<%= f.hidden_field :donation_type,:value => @donation.donatable_type%>
+<div class="form-horizontal">
+    <div class="control-group">
+        <%= f.label :amount,:class=>"control-label" %>
+        <div class="controls">
+            <div class="input-prepend">
+                <span class="add-on">$</span>
+                <%= f.text_field :amount,:class=>"input-small",:value => (number_with_precision(f.object.amount, :precision => 2) || 0)%>
+            </div>
+        </div>
+    </div>
+    <% if false%>
+    <% if @donation.donatable_type == "User"%>
+    <div class="control-group">
+        <%= f.label "Donation type",:class=>"control-label" %>
+        <div class="controls">
+            <div class="input-prepend">
+                <%= f.select :recurringBillingFrequency,["ONE TIME","MONTHLY","QUARTERLY","SEMIYEARLY","YEARLY"]%>
+            </div>
+        </div>
+    </div>
+    <%= f.hidden_field :recurringBillingTerm, :value => 1%>
+    <%end%>
+    <% end %>
+
+
+
+    <% if !@donation.donor.card_token.blank? && @donation.donor.card_token.card_token? %>
+    <div class="control-group">
+        <%= f.label "Use  saved card",:class=>"control-label" %>
+        <div class="controls">
+           <span class ="btn disabled">
+            <%= f.check_box :use_card_on_file,:class=>"use_saved_card"%></span>  
+        </div>
+    </div>            <% end %>
+
+
+
+
+    <div id="billing_card_form">
+        <div class="control-group">
+            <%= f.label :first_name,:class=>"control-label" %>
+            <div class="controls">
+                <%= f.text_field :first_name,:class=>""%>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <%= f.label :last_name,:class=>"control-label" %>
+            <div class="controls">
+
+                <%= f.text_field :last_name,:class=>""%>
+
+            </div>
+        </div>
+
+        <% if false %>
+        <div class="control-group">
+            <%= f.label :phone,:class=>"control-label" %>
+            <div class="controls">
+
+                <%= f.text_field :phone,:class=>""%>
+
+            </div>
+        </div>
+        <% end %>
+        <div class="control-group">
+            <%= f.label :address1,:class=>"control-label" %>
+            <div class="controls">
+
+                <%= f.text_field :address1,:class=>""%>
+
+            </div>
+        </div>
+        <div class="control-group">
+            <%= f.label :address2,:class=>"control-label" %>
+            <div class="controls">
+
+                <%= f.text_field :address2,:class=>""%>
+
+            </div>
+        </div>
+        <div class="control-group">
+            <%= f.label :city,:class=>"control-label" %>
+            <div class="controls">
+
+                <%= f.text_field :city,:class=>""%>
+
+            </div>
+        </div>
+        <div class="control-group">
+            <%= f.label :state,:class=>"control-label" %>
+            <div class="controls">
+
+                <%= f.collection_select :state,State.all,:state_code,:name%>
+
+            </div>
+        </div>
+
+        <div class="control-group">
+            <%= f.label "Zip/Postal Code",:class=>"control-label" %>
+            <div class="controls">
+                <%= f.text_field :zip_code%>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <%= f.label "Card Type",:class=>"control-label" %>
+            <div class="controls">
+
+                <span class="btn disabled"><%= f.radio_button :card_type,"VI"%> Visa </span>
+                <span class="btn disabled"><%= f.radio_button :card_type,"MC"%> MasterCard </span>
+                <span class="btn disabled"> <%= f.radio_button :card_type,"AX"%> American Express </span>
+                <span class="btn disabled"><%= f.radio_button :card_type,"DI"%> Discover </span>
+
+            </div>
+        </div>
+        <div class="control-group">
+            <%= f.label "Name on card",:class=>"control-label" %>
+            <div class="controls">
+
+                <%= f.text_field :name_on_card%>
+
+            </div>
+        </div>
+
+        <div class="control-group">
+            <%= f.label "Card Number",:class=>"control-label" %>
+            <div class="controls">
+
+                <%= f.text_field :card_number%>
+
+            </div>
+        </div>
+        <div class="control-group">
+            <%= f.label "verification number",:class=>"control-label" %>
+            <div class="controls">
+
+                <%= f.text_field :verification_code%> <span class="help alert">
+                   3 or 4 digits code at the back of your card.
+                </span>
+
+            </div>
+        </div>
+        
+        <% if @donation.donatable_type == "ApiNonprofit"%>
+         <div class="control-group">
+	            <%= f.label "Card expiration",:class=>"control-label" %>
+	            <div class="controls dateselect">
+	
+	                <%= select_month(14, :prefix=>"api_nonprofit[donation_attributes]",:field_name=>"expiry_month",:use_month_numbers=>true,:prompt=>"")%>
+	                <%= select_year(Date.today.year-1, :start_year => Date.today.year, :end_year => Date.today.year+5,:prefix=>"api_nonprofit[donation_attributes]",:field_name=>"expiry_year",:prompt=>"",:required=>true)%>
+	
+	            </div>
+	        </div>
+        <% else %>
+	        <div class="control-group">
+	            <%= f.label "Card expiration",:class=>"control-label" %>
+	            <div class="controls dateselect">
+	
+	                <%= select_month(14, :prefix=>"donation",:field_name=>"expiry_month",:use_month_numbers=>true,:prompt=>"")%>
+	                <%= select_year(Date.today.year-1, :start_year => Date.today.year, :end_year => Date.today.year+5,:prefix=>"donation",:field_name=>"expiry_year",:prompt=>"",:required=>true)%>
+	
+	            </div>
+	        </div>
+		<% end %>
+
+
+        <div class="control-group">
+            <%= f.label "Save card for future use",:class=>"control-label" %>
+            <div class="controls dateselect">
+<span class ="btn disabled">
+                <%= f.check_box :saved_for_future_use%></span>
+                <span class="help alert">
+                   We  will not store credit card information.
+                  
+                </span>
+            </div>
+        </div>
+    </div>
+    
+  
+    <%if false%>
+    <%= link_to "Share",donation_detail_path(Donation.find(1))%>
+    <%end%>
+
+    <div class="form-actions">
+        <%= f.submit "Confirm",:class=>"btn-success btn-large",:disable_with => "Processing..."%><span class="help-inline"> <%= image_tag"firstgiving.gif", :style=>"margin-left:50px;"%></span>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<%= link_to 'Back to causes', causes_path(@user) %>
+	 <div class="feedBox">
+		 
+		 <h3><%= @cause.title%></h3>
+		 <p><%= simple_format(@cause.description)%></p>
+		 <p>Cause ends at <em> <%=  @cause.end_date.to_formatted_s(:long)  %></em> &nbsp;
+		</p>
+
+		  <%= link_to "Donate" ,"javascript:alert('Work on progress...')" ,:class =>"read-more"%>
+<%@url = cause_url(@cause.user,@cause)
+@text = @cause.title
+%>
+<%= render :partial => "shared/twit_this"%>
+		   
+	</div>
+		  <% unless @cause.cause_images.blank? %>
+
+	 <div class="feedBox">
+		 <h3>Images</h3>
+		  <div class="images">
+		  	<% @cause.cause_images.each do |image| %>
+		  	<% if image.attachment.exists?%>
+			  	<div class="user_image">
+			  		<%= image_tag(image.attachment(:thumb))%>
+			  	</div>
+		  	<%end%>
+		  	<%end%> 
+		  	<div class="clearboth"></div>
+		  </div>
+
+	 </div>
+
+		  <%end%>
+
+		  <% unless @cause.cause_videos.blank? %>
+
+	 <div class="feedBox">
+<h3>Videos</h3>
+		  <div class="videos">
+		  	<% @cause.cause_videos.each do |video| %>
+		  	<% if video.video_url?%>
+			  	<div class="user_video">
+			  		<%= video.video_url_html%>
+			  			<p class="video_title" >
+				  			<%= video.video_title%>
+				  		</p>
+			  		
+			  	</div>
+		  	<%end%>
+		  	<%end%> 
+		  	<div class="clearboth"></div>
+		  </div>
+
+	 </div>
+
+		  <%end%>
+

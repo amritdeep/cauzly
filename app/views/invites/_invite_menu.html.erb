@@ -1,0 +1,10 @@
+<div class="well">
+<ul class="nav nav-list">
+	
+		<%emaillink=  image_tag("socialicons/emailicon12.png",:style=>"display:inline-block; border:0; height:12px; padding-right:10px;") + "   Email"%>
+	
+	<li><strong><%= link_to emaillink.html_safe, invites_invite_email_path%></strong></li>
+	<%fblink=  image_tag("socialicons/facebook24.png",:style=>"display:inline-block; border:0; height:12px; padding-right:10px;") + "   Facebook"%>
+	<li><strong><%= link_to fblink.html_safe, invites_index_path%></strong></li>
+</ul>
+	</div>

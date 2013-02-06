@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Username:</b>
+  <%= @reserved_username.username %>
+</p>
+
+
+<%= link_to 'Edit', edit_reserved_username_path(@reserved_username) %> |
+<%= link_to 'Back', reserved_usernames_path %>

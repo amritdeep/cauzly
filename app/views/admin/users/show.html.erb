@@ -1,0 +1,34 @@
+
+<%= link_to 'User List', admin_users_path %>
+<br />
+User Type : <%= @user.user_type.name %><br />
+Email : <%= @user.email %><br />
+<div class="left">
+<% unless @user.user_logo.nil? %>
+	<%= image_tag(@user.user_logo.attachment(:thumb)) %>
+<% end %>
+
+<% unless @address.nil? %>
+<h2>Address</h2>
+	<br />
+	<%= @address.address1 %>, 
+	<%= @address.address2 %>,
+	<%= @address.city.name %>,
+	<%= @address.city.state.name %>
+	<%= @address.zip_code %> 
+<% end %>
+
+<% unless @social_link.nil? %>
+<br />
+<br />
+
+	<%= link_to "Facebook" ,@social_link.facebook_url ,:target => "_blank",:title=>"Facebook" ,:class=> "facebook" unless @social_link.facebook_url.nil? %>
+	 <%= link_to "Twitter" ,@social_link.twitter_url ,:target => "_blank",:title=>"Twitter",:class=> "twitter" unless @social_link.twitter_url.nil? %>
+	 <%= link_to "GooglePlus" ,@social_link.googleplus_url ,:target => "_blank",:title=>"Google Plus",:class=> "google" unless @social_link.googleplus_url.nil? %>
+	 <%= link_to "LinkedIn" ,@social_link.linkedin_url ,:target => "_blank" ,:title=>"LinkedIn",:class=> "linkedin" unless @social_link.linkedin_url.nil? %>
+	 <%= link_to "Myspace" ,@social_link.myspace_url ,:target => "_blank" ,:title=>"Myspace",:class=> "myspace" unless @social_link.myspace_url.nil? %>
+	 <%= link_to "Orkut" ,@social_link.orkut_url ,:target => "_blank",:title=>"Orkut" ,:class=> "orkut" unless @social_link.orkut_url.nil? %>
+<% end %>
+</div>
+
+<%= link_to 'Edit', edit_admin_user_path(@user.id) %> 

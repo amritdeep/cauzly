@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h4>Hello, <%= @user.email %></h4>
+    <h3>
+		<%= @newsletter.subject%>
+    </h3>
+    
+      <%= simple_format(@newsletter.body)%>
+    
+    <p>Have a great day!</p>
+    <p>cauzly.com</p>
+    <%= @url %>
+  </body>
+</html>

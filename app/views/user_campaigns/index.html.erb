@@ -1,0 +1,66 @@
+	<div class="">
+	<h3>My campaigns
+		<span class="pull-right"><%= link_to 'Start  new campaign', new_user_campaign_path ,:class=>"btn"%></span>
+		</h3> 
+	<hr />
+	
+	
+<% unless @campaigns.blank?%>	
+	<% @campaigns.each do |campaign| %>
+
+		<div class="well box">
+		
+		<div class="row-fluid">
+		  	<div class="span2">
+				
+				
+				
+					<% if campaign.default_image && campaign.default_image.attachment.exists?%>
+					<%= image_tag(campaign.default_image.attachment(:small))%>
+					<%else%>
+  					<%= image_tag("no-img60.png") %>
+  					<%end%>
+  				
+  				
+  			
+  			</div>
+  			<div class="span7">
+		 		<h3><%=link_to campaign.title ,campaign_path(campaign)%></h3> 
+				<p><%= campaign.description.truncate(150)%></p>
+			 	<p>Campaign ends at <em> <%=  campaign.end_date.to_formatted_s(:long)  %></em></p>
+			</div>
+			
+			
+			<div class="span3">		
+				<div class="btn-group pull-right">
+					<%= link_to 'Donations', donations_campaigns_user_campaign_path(campaign) ,:class=>"btn"%>
+		    		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		    			Action 
+		    			<span class="caret"></span>
+		   			</a>
+		    		<ul class="dropdown-menu">
+		   				 <li><%= link_to "<i class='icon-film'></i><i class='icon-picture'></i>Add Image And video".html_safe, user_campaign_path(campaign)%></li> 
+						<li><%= link_to "<i class='icon-pencil'></i>Edit".html_safe, edit_user_campaign_path(campaign) %></li> 
+				    	<li><%= link_to "<i class='icon-remove'></i>Remove".html_safe, user_campaign_path(campaign), confirm: 'Are you sure?', method: :delete %></li>
+		    		</ul>
+		    	</div>
+			
+			</div>
+			
+			
+			
+			
+			
+			
+			
+	
+	</div>
+	</div>	
+		
+	<% end %>
+
+<%else%><br />
+You haven't started any campaign.<br />
+
+	<% end %>
+	</div>

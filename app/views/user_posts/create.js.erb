@@ -1,0 +1,10 @@
+$('#user_post_form')[0].reset();
+
+$('#feeds').prepend('<%=escape_javascript(render(@user_post))%>');
+$('#no_feed').hide();
+
+$('a.ajax').click(function()
+	{
+		$('#processing').modal('show')
+	}
+)

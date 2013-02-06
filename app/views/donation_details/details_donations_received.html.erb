@@ -1,0 +1,41 @@
+<div class ="box">
+<h3>Donations</h3> 
+<hr />
+<% if !@donations_received.blank?%>
+<div class="wordwrap">
+<table class="table table-striped table-condensed">
+  <tr class="yellow">
+  	<th>Date</th>
+    <th>Donated By</th>
+    
+    <th>Amount</th>
+  
+  </tr>
+
+<% @donations_received.each do |received| %>
+<tr>
+<td><%= received.created_at.strftime("%m-%d-%Y") %></td>
+<td>
+
+		
+		<% user=received.donor %>
+		<%= link_to user.profile.name,profile_path(user),:target => "_blank" unless user.profile.blank? %>
+		
+		
+		
+		
+		
+		
+		</td>
+<td><%= number_to_currency(received.amount, :precision => 2)  %></td>
+
+</tr>
+<% end %> 
+
+</table>
+<%= will_paginate @donations_received ,:renderer => BootstrapLinkRenderer %>
+</div>
+<%else%>
+No donations received.
+<%end%>
+</div>

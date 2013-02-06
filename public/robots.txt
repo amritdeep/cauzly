@@ -1,0 +1,14 @@
+# See http://www.robotstxt.org/wc/norobots.html for documentation on how to use the robots.txt file
+#
+# To ban all spiders from the entire site uncomment the next two lines:
+ # allow only important bots
+User-agent: Googlebot
+User-agent: Googlebot-ImageUser-agent: Mediapartners-Google
+User-agent: msnbot
+User-agent: msnbot-media
+User-agent: Yahoo-Blogs
+User-agent: Yahoo-MMCrawler
+Allow: /
+
+User-agent: *
+Disallow: /

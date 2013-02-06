@@ -1,0 +1,22 @@
+<%= form_for([:admin,@state]) do |f| %>
+  <%= render :partial =>"shared/validation_msg" ,:locals =>{:obj=>@state} %>
+  <div class="control-group">
+  	<div class="control-label">
+    <%= f.label :name %>
+    </div>
+    <div class="controls">
+    <%= f.text_field :name %>
+    </div>
+  </div>
+  <div>
+  	Add Cities To state
+  <hr />
+  <%= f.fields_for :cities do |city| %>
+		<%= render :partial => 'city_fields', :locals => {:f => city} %>
+    <% end %>
+	<%= link_to_add_fields "+ Add City", f, :cities  %>
+  </div>	
+  <div class="form-actions">
+    <%= f.submit %>
+  </div>
+<% end %>

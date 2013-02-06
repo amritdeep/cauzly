@@ -1,0 +1,37 @@
+  <ul class="breadcrumb">
+		    <li>
+		   		<%= link_to "<i class='icon-home'></i>Home".html_safe,root_path%>
+		     	<span class="divider">/</span>
+		    </li>
+		    <li><%= link_to "Profile".html_safe,profile_path(@user)%>
+		     	<span class="divider">/</span> 
+		    </li>
+		    <li class="active">Images 
+		    </li>
+		   
+    	</ul>
+      <% unless @images.blank? %>
+<div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery" class="well box">
+					
+<ul class="thumbnails">
+
+		  	  <% @images.each do |user_image|%>
+			  	  <% if user_image.attachment.exists? %>
+		
+    <li>
+    <div class="thumbnail">
+   	
+	<%= link_to image_tag(user_image.attachment.url(:thumb)),user_image.attachment(:medium),:rel=>"gallery" ,:class=>""%>
+				  	<div class="caption">
+				  	
+				  	</div>
+				   </div>
+    </li>
+    
+  
+	<% end %>
+	<% end %>
+	</ul>			</div>
+						
+	
+<%end%>

@@ -1,0 +1,43 @@
+<div class="form-horizontal">
+<%= form_for(@user_logo,:url => update_logo_path,:method => :post,:multipart => :true) do |f| %>
+  <fieldset><legend>Update profile picture</legend>
+  <%= render :partial => "shared/validation_msg",:locals=>{:obj=>@user_logo} %>
+  
+  		<% unless @user_logo.blank? %>
+  	  <% if @user_logo.attachment.exists? %>
+	<div class="control-group">
+  	<div class="control-label">
+  	<label>Current picture</label>
+  	</div>
+  	<div class="controls">
+  
+	  	<%= image_tag @user_logo.attachment.url(:logo)%><br />
+		</div>
+  	</div>
+    	
+	  <% end %>
+  <% end %>
+  
+  	
+  <div class="control-group">
+  	<div class="control-label">
+   <%= f.label "Upload Image " %>
+   </div>
+   
+   <div class="controls">
+  
+    <%= f.file_field :attachment%> 
+	<br/> 
+  	<i> Max 2MB, Image Type: JPG, JPEG, PNG, GIF<i/>
+    </div>
+  </div>
+ 
+  
+ 
+    <div class="form-actions">
+    	<%= f.submit "Upload" %>
+    </div>
+  
+  </fieldset>
+<% end %>
+</div>

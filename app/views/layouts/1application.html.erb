@@ -1,0 +1,25 @@
+<%= render :partial =>"layouts/header"%>
+<div id="middle">
+		<div id="container">
+			<div id="content">
+				
+                    <% if notice %>
+						<div class="alert-1">
+                        	<div class="correct"></div><!-- .correct -->
+                            <p><%= notice.html_safe %></p>
+                        </div><!-- .alert-1 -->
+        		<% end %>
+        		<% if alert %>
+                      <div class="alert-2">    
+                        	<div class="mistake"></div><!-- .mistake -->
+                            <p><%= alert.html_safe %></p>
+                        </div><!-- .alert-2 -->
+        		<% end %>
+        		<%= yield %>
+    			</div><!-- #content-->
+            <div class="clr"></div>
+		
+		</div><!-- #container-->
+</div>
+<div class="clr"></div>
+<%= render :partial => "layouts/footer"%>

@@ -1,0 +1,48 @@
+NO_OF_USER_TO_DISPLAY = 20
+
+PER_PAGE_USERS = 15
+PER_PAGE_CAMPAIGNS = 15
+FOLLOWING_FOLLOWER_PER_PAGE=10
+
+
+SITE_NAME                = 'Cauzly.com'
+DEFAULT_PAGE_TITLE       = SITE_NAME
+DEFAULT_PAGE_DESCRIPTION = SITE_NAME
+
+FACEBOOK_APP_ID          = '379444142109363'
+FACEBOOK_APP_SECRET      = '91a89adc4d7d3c6d50a65a3b456f6e47'
+
+# For Dev
+#FACEBOOK_APP_ID = '110722769060947'
+#FACEBOOK_APP_SECRET   ='bf622f59bbfef903fab7394b02a12baf'
+
+
+FACEBOOK_APP_PERMISSIONS = 'email,offline_access,publish_stream'
+DEFAULT_FB_SHARE_IMAGE   = 'http://localhost:3000/images/missing.png'
+DEFAULT_FB_POST_NAME     = SITE_NAME
+
+#TWITTER_CONSUMER_KEY     = '8wuYYDjWeNcyPo3HTvwM9Q'
+#TWITTER_SECRET_KEY       = 'DrxUjqM6ZBMeblk1UGzXQRvT1UJO4B75ZqjtoyPKE'
+
+TWITTER_CONSUMER_KEY     ='UP7PdfOlKrPAGw5kDuOU8w'
+
+TWITTER_SECRET_KEY       ='n9hePGDBDFz627XYtiUM2W0bcO31XyORGPvIOHs'
+
+
+DEFAULT_SHARE_URL        = "http://localhost:3000"
+
+SUPPORTED_PROVIDER        = ['twitter', 'facebook']
+
+FIRST_GIVING_SEARCH_URL   = 'http://graphapi.firstgiving.com/v1/list/organization?q=government_id:'
+
+FGIVING_DONATION_PRO_URL = "https://api.firstgiving.com/"
+FGIVING_APP_KEY           = 'b4428fb2-bfb5-11e1-939b-12313b003616'
+FGIVING_SECURITY_TOKEN    = 'b44a1b60-bfb5-11e1-939b-12313b003616'
+
+
+#FGIVING_DONATION_PRO_URL  = "http://usapisandbox.fgdev.net/"
+#FGIVING_APP_KEY           = '6921eaea-ac06-11e1-939b-12313b003616'
+#FGIVING_SECURITY_TOKEN    = '69233de6-ac06-11e1-939b-12313b003616'
+
+
+

@@ -1,0 +1,72 @@
+<div class="fullWidth">
+	<div class="feedBox">
+	<h3>Member Search</h3>
+	<%= link_to "View All" ,member_search_path %>
+	<%= form_tag("/members",:method => :post) do |f| %>
+		<select name="state">
+			
+				<% unless @states.nil?%>
+					<% @states.each do |state|%>
+						<option value="<%= state.id %>"
+							 <% if params[:state] && state.id == params[:state].to_i %> 
+									selected ="selected"
+								<%end%> >
+							<%= state.name%>
+							</option>
+					<%end%>
+				<% end %>
+			</select>
+		<select name="user_type">
+			
+				<% unless @user_types.nil?%>
+					<% @user_types.each do |user_type|%>
+						<option value="<%= user_type.id %>" <% if params[:user_type] &&  user_type.id == params[:user_type].to_i %> selected ="selected"<%end%> ><%= user_type.name%></option>
+					<%end%>
+				<% end %>
+			</select>
+			
+			<div class="button" style="display: inline-block; float: right;">
+			 <input type="submit" name="submit" value="Search " />
+			 </div>
+	<% end %>
+	</div>
+	
+	
+	<h3>Members    <span style="color:green" ><% if params[:state]%> State :  <%= State.find(params[:state]).name %> | Type :  <%= UserType.find(params[:user_type]).name %> <% end %> </span></h3>
+	
+	
+	<% unless @users.empty?%>
+		<% @users.each do |user| %>
+			<article>
+				
+			    <div class="avtar">
+				    <% unless user.user_logo.nil? %>
+						<%= link_to(image_tag(user.user_logo.attachment(:thumb)),profile_path(user.url_param)) %>
+					<% else %>
+						<%= link_to(image_tag("no-img100.png"),profile_path(user.url_param)) %>
+					<%end%>
+				<br />	
+					<% if !user.profile.nil? && user.profile.website? %>
+			        			<a href="<%= user.profile.website%>" target = "_blank"><%= user.profile.website %></a>
+							<%end%>
+				</div>
+			    <div class="divCharity">
+			    	<div style="text-align: right"><em><%= user.user_type.name %></em></div>
+						<% unless user.profile.nil? %>
+		                  	<h3><%= link_to user.profile.name ,profile_path(user.url_param),:class=>"" %></h3>
+		                    <p><%= user.profile.description.truncate(350)%></p>
+			        		
+		    		   	<% else %>
+						   <h3>&nbsp;</h3>
+					      	<p>&nbsp;</p>
+						<% end %>
+						<p align="right"><%= link_to "View Detail",profile_path(user.url_param),:class=>"read-more" %></p>                
+				</div><!-- .divCharity -->
+		    </article>
+		 <% end %>
+		<%= will_paginate @users%>
+	<% else %>
+	Sorry no records found!
+	<% end %>
+	
+</div>

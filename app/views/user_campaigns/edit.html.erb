@@ -1,0 +1,20 @@
+<div class="form-horizontal">
+	
+	<h3>Edit campaign <span class="pull-right"><div class="btn-group">
+        <%= link_to 'Back to campaigns', user_campaigns_path,:class=>"btn" %>
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+    Action 
+    <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+    <li><%= link_to "<i class='icon-film'></i><i class='icon-picture'></i>Add Image And video".html_safe, user_campaign_path(@campaign)%></li> 
+                <li><%= link_to "<i class='icon-pencil'></i>Edit".html_safe, edit_user_campaign_path(@campaign) %></li> 
+                <li><%= link_to "<i class='icon-remove'></i>Remove".html_safe, user_campaign_path(@campaign), confirm: 'Are you sure?', method: :delete %></li>
+    </ul>
+    </div></span></h3>
+	<hr>
+	
+  	
+	<%= render 'form' %>
+	
+</div>

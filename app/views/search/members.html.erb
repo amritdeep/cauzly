@@ -1,0 +1,259 @@
+<div class="row-fluid">
+	<div class="span3">
+		<div class="well dateselect">
+		
+	<strong>Filter by state and type</strong>
+	<%= form_for(:members_search ,:url => :members_search_index,:method=>:get) do |f|%>
+		<%= f.collection_select :state,@states ,:id,:name,:include_blank=>"Select State"%>
+		<%= f.collection_select :user_type,@user_types ,:id,:name,:include_blank=>"Select Member Type"%>
+				
+			<div class="button" style="display: inline-block; ">
+		<%= f.submit "Go", :style=>"float: none;"%>
+		</div>
+		
+	<% end %>
+	
+
+			</div>
+	</div>
+<div class="span9">
+	 <ul class="breadcrumb">
+		    <li>
+		   		<%= link_to "<i class='icon-home'></i>Home".html_safe,root_path%>
+		     	<span class="divider">/</span>
+		    </li>
+		    
+		    <li class="active">Members</li>
+		   
+		   
+    	</ul>
+	<%= render :partial =>"member_filter"%>
+	
+	
+	
+	<h3>Members  <span style="color: #3B95D5;margin-left: 100px;"><%= @search_term unless @search_term.blank?%></span></h3>
+	
+	
+	<% unless @users.empty?%>
+		<% @users.each do |user| %>
+			<div class="well">
+			<div class="row-fluid">
+					
+			    <div class="span3 ">
+				    <% unless user.user_logo.nil? %>
+						<%= link_to(image_tag(user.user_logo.attachment(:thumb)),profile_path(user.url_param)) %>
+					<% else %>
+						<%= link_to(image_tag("no-img100.png"),profile_path(user.url_param)) %>
+					<%end%>
+				<br />	
+					<% if !user.profile.nil? && user.profile.website? %>
+			        			<a href="<%= user.profile.website%>" target = "_blank"><%= user.profile.website %></a>
+							<%end%>
+				</div>
+			    <div class="span7">
+			    		<% unless user.profile.nil? %>
+		                  	<h3><%= link_to user.profile.name ,profile_path(user.url_param),:class=>"" %></h3>
+		                    <p><%= user.profile.description.truncate(180)%></p>
+			       		
+		    		   	<% else %>
+						   <h3>&nbsp;</h3>
+					      	<p>&nbsp;</p>
+						<% end %>
+						                
+				</div><!-- .divCharity -->
+				<div class="span2">
+					 <div class="alert alert-info"><em><%= user.user_type.name %></em></div>
+					
+					<%= link_to "View Detail",profile_path(user.url_param),:class=>"btn btn-primary" %></div>
+		   
+		    </div>
+		    </div>
+		    
+		 <% end %>
+		<%= will_paginate @users%>
+	<% else %>
+	Sorry no records found!
+	<% end %>
+	
+</div>
+</div>
+
+
+
+
+
+
+
+	<div class="leftPanel">
+	
+		
+	
+	<div class="box">
+	    <p><label>Filter by</label></p>
+	<%= form_for(:filter_by_state_and_type_members ,:url => :filter_by_state_and_type_members,:method=>:post) do |f|%>
+		<%= f.text_field :q,:placeholder=>"search keyword",:class=>"input"%>
+		
+		<% unless @state.blank?%>
+		<%=f.collection_select(:state, @states, :id, :name,
+          {:prompt => "All States",  :selected => @state.id})%>
+			<%else%>
+			<%=f.collection_select(:state, @states, :id, :name,
+          {:prompt => "All States",  :selected => ""})%>
+          <%end%>	
+			<% unless @user_type.blank?%>
+			<%= select_tag 'filter_by_state_and_type_members[user_type]', 
+options_from_collection_for_select(@user_types,'id','name',@user_type.id) 
+%>	<% else %>
+<%=f.collection_select(:state, @user_types, :id, :name)%>
+<% end %>
+			
+		<%= f.submit "Go" ,:class =>"viewProfile"%>
+		
+		
+	<% end %>
+</div>
+	
+
+			
+	</div>
+<div class="rightPanel">
+	 <ul class="breadcrumb">
+		    <li>
+		   		<%= link_to "<i class='icon-home'></i>Home".html_safe,root_path%>
+		     	<span class="divider">/</span>
+		    </li>
+		    <li class="active">Members<span class="divider">/</span></li>
+			
+		    <li class="active"><%= @user_type.name.humanize%><span class="divider">/</span></li>
+		    <li><%= @search_term.html_safe unless @search_term.blank?%></li>		   
+		   
+    	</ul>
+    	
+	<%= render :partial =>"member_filter"%>
+	
+	
+	
+	
+	
+	<% unless @users.empty?%>
+		<% @users.each do |user| %>
+			<div class="well box">
+			<div class="row-fluid">
+					
+			    <div class="span2">
+						
+								<div class="">
+						<%= link_to get_avatar_small(user),profile_path(user.url_param) %>
+										</div>
+					
+				
+								
+				</div>
+				
+			    <div class="span8">
+			    		<% unless user.profile.nil? %>
+		                  	<h3><%= link_to user.profile.name ,profile_path(user.url_param),:class=>"" %></h3>
+		                    <p><%= user.profile.description.truncate(100) if user.profile.description?%></p>
+			       		
+		    		   	<% else %>
+						   <h3>&nbsp;</h3>
+					      	<p>&nbsp;</p>
+						<% end %>
+						<% if !user.profile.nil? && user.profile.website? %>
+			        			<a href="<%= user.profile.website%>" target = "_blank"><%= user.profile.website %></a>
+							<%end%>
+					                
+				</div><!-- .divCharity -->
+				<div class="span2"> 
+					<% if current_user%>
+					<% @user = user%>
+					<%if current_user.id!=@user.id%>
+						<div class="followlinks_<%= @user.id%>">
+							
+							<%= render :partial => "follow/followunfollow_links"%>
+							
+						 </div>
+						<%end%> 
+						<% end %>
+	
+			
+					
+					<br /> 
+					<%= link_to "Detail",profile_path(user.url_param),:class=>"btn btn-primary" %></div>
+		   		
+
+		    </div>
+		    </div>
+		    
+		 <% end %>
+		<%= will_paginate @users ,:renderer => BootstrapLinkRenderer %>
+	<% else %>
+	Sorry no records found!
+	<% end %>
+	
+	<hr />
+	<strong>Didn't find nonprofit you looking for to donate? Search here</strong>
+	<hr />
+	<div id="fgGraphWidgetContainer"></div>
+
+    <script>
+
+    var FG_GRAPHWIDGET_PARAMS = {
+
+    results : {
+
+    selectaction : function(uuid, charity_name, ein) {
+
+    //alert('SELECTED ' + charity_name + ' ' + uuid + ' ein (' + ein + ')');
+     window.location.href = '/donation/apinonprofit/'+uuid+"/"+ein;
+
+    }
+
+    }
+
+    };
+
+    </script>
+
+    <script src="http://assets.firstgiving.com/graphwidget/static/js/fg_graph_widget.min.js"></script>
+	<style>
+		#fgGraphWidgetContainer{width:auto !important;}
+		#fgGraphWidgetContainer #fgResults{width:auto !important;}
+	</style>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+

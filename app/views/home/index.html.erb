@@ -1,0 +1,78 @@
+       <%= image_tag("featuredCauses-img.png",:style => "width:32px;height:32px") %>
+        <h1>Featured Causes</h1>
+       
+     <% if @users.blank?%>
+     <p style="margin:5px 100px; font-size: 13px; font-weight: bold;"> Coming soon...</p>
+     <%else%>    
+		<% @users.each do |user|%>
+		 	<div class="box boxh">
+	                    <h2><%= link_to  user.profile.name, profile_path(user.url_param)  unless user.profile.blank?%></h2>
+	                    <!--<span>5463 Worchester Street<br />
+	                    Suite 122, Irving<br />
+	                    Texas, 83939</span>-->
+	                    
+	                    <div class="sponsorsLogo">
+	                        <%= link_to get_avatar_thumb(user),profile_path(user) %>
+	                    </div><!-- End of sponsorsLogo -->
+	                    
+	                    <p><%= truncate(user.profile.description,:length=>125) unless user.profile.blank?%>
+								   </p>
+	                    
+	                    <!--<p>Satisfied conveying an dependent contented he gentleman agreeable do be. Warrant private blushes removed an in equally totally if. Delivered dejection necessary objection do mr prevailed. </p>-->
+	                    
+	                    <div  class="button">
+	                    	<%= link_to "Profile", profile_path(user.url_param),:class=>"viewProfile fleft"%>
+	                        <%= link_to "Donate", user_donation_path(user),:class=>"donate fright"%>
+				    
+	                        <div class="raised">RAISED: <%= number_to_currency(user.total_raised,:precision=>2)%></div>
+	                    </div><!-- End of button -->
+	             </div><!-- End of box --> 
+	     <% end %>
+     <%end%>
+     
+    </div> <!-- contents div closed -->
+    
+            
+    <div class="contents clearfix">
+  
+   <% if !@top_six.blank?%>     
+      <div class="activeCampaigns" >
+        <%= image_tag("activeCampaigns-icon.png",:style => "width:32px;height:32px") %> 
+        <h1>Featured Campaigns</h1>
+          <% @top_six.each do |campaign| %>
+              <div class="smallBox">
+                    <% if campaign.default_image%>
+                        <%= link_to image_tag(campaign.default_image.attachment(:big_thumb)), campaign_path(campaign),:target=>"_blank",:title=>"#{campaign.title}" if campaign.default_image.attachment?%>
+                    <%else%>
+                        <%= link_to image_tag('no-image101.png' ,:style =>"width:200px;height:120px"), campaign_path(campaign),:target=>"_blank",:title=>"#{campaign.title}"%>
+                    <%end%>
+                    
+                   <h3><%=link_to truncate(campaign.title,:length=>28),campaign_path(campaign),:target=>"_blank",:title=>"#{campaign.title}"%></h3>
+                   
+                   <p><%= truncate(campaign.description,:length=>150) unless campaign.description.blank?%>
+                               </p>
+                    
+                    
+                    <div class=" fleft"><%=link_to "Donate",campaign_donation_path(campaign),:class=> "donate button" %></div>
+                    <span class=" fleft"><%= distance_of_time_in_words(Time.now,campaign.end_date,:only => [:days]) %> left</span>
+                  <span class="fright">Raised: <%= number_to_currency(campaign.total_raised,:precision=>2)%></span>
+                </div><!-- End of smallBox -->
+          <% end %>        	
+      </div><!-- End of activeCampaigns -->
+      <%else%>
+      <%= image_tag("activeCampaigns-icon.png",:style => "width:32px;height:32px") %> 
+        <h1>Featured Campaigns</h1>
+         <p style="margin:5px 100px; font-size: 13px; font-weight: bold;"> Coming soon...</p>
+   <%end%>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

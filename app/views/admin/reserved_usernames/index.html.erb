@@ -1,0 +1,40 @@
+<div class="row-fluid">
+<h3>Reserved Usernames</h3>
+<%= link_to 'New Reserved User Name', new_admin_reserved_username_path,:class=>"btn btn-primary pull-right" %>
+</div>
+<br/>
+
+<%if params[:page] %>
+ <%cnt=20*(params[:page].to_i-1) +1%>
+<%else%>
+  <%cnt=1%>
+<%end%>
+<table class="table-condensed table table-bordered">
+  <tr>
+  	<th>S.N.</th>
+    <th>Usernames</th>
+    <th></th>
+    
+  </tr>
+
+<% @reserved_usernames.each do |reserved_username| %>
+  <tr>
+  	 <td><%= cnt %>.</td>
+    <td><%= reserved_username.username %></td>
+    <td><%= link_to '<i class="icon-pencil"></i>'.html_safe, edit_admin_reserved_username_path(reserved_username) %>
+    <%= link_to '<i class="icon-trash"></i>'.html_safe, admin_reserved_username_path(reserved_username), confirm: 'Are you sure?', method: :delete %>
+    <% unless reserved_username.user_id.blank? %>
+    <%= link_to "User",profile_path(reserved_username.user_id) ,:target => "_blank" unless reserved_username.user_id.blank?%> |
+    <%= link_to "Approve",admin_reserved_username_approve_request_url(reserved_username)  %> |
+    <%= link_to "Reject", admin_reserved_username_reject_request_url(reserved_username) %>
+    <% end %>
+    </td>
+    
+  </tr>
+  <% cnt = cnt+1 %>
+<% end %>
+</table>
+
+
+
+<%= will_paginate @reserved_usernames ,:renderer => BootstrapLinkRenderer %>

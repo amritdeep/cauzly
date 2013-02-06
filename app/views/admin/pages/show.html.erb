@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Page</b>
+  <%= @page.page_title %><br/>
+  
+  <b>Name</b>
+   <%= @page.page_name %><br/>
+   
+   <b>Content</b>
+    <%= @page.page_content %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_page_path(@page),:class=>"btn" %>
+<%= link_to 'Back to list', admin_pages_path , :class=>"btn" %>

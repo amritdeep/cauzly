@@ -1,0 +1,108 @@
+	
+	<%= render :partial => "user_posts/form"%>
+	
+	
+<h3>
+    <%= link_to image_tag("activity-icons.png",:style => "width:20px;height:20px")%>    
+    Activity Feed
+    </h3>
+<hr />
+
+
+<div id="feeds">
+    <% unless @feeds.blank?%>
+        <% @feeds.each do |feed|%>
+		    <% if feed.activity_source_type=="UserPost"
+		    user_post = feed.activity_source
+		    %>           
+                    <%= render(user_post)%>
+            <%elsif feed.activity_source_type=="Donation"
+                    donation = feed.activity_source
+                    %>
+    <div class="well box">
+                    <div class="row-fluid">
+                        <div class="span2">
+                           <%= link_to get_avatar_small(donation.donor),profile_path(donation.donor.url_param)%>
+                        </div><!-- End of span2 -->
+                        
+                        <div class="span8">
+                                <strong><%= link_to donation.donor.profile.name,profile_path(donation.donor) if !donation.donor.profile.blank? && donation.donor.profile.name? %></strong><br>
+                                 made a donation to <%if false%> <%= number_to_currency(donation.amount,:precision=>2)%><%end%> 
+                                
+                              <% if  donation.donatable_type =="User"%>
+                              <%= link_to donation.donatable.profile.name,profile_path(donation.donatable) unless donation.donatable.profile.blank?%> 
+                                
+                             <%elsif donation.donatable_type == "Campaign"%>
+                             <%=link_to donation.donatable.title,campaign_path(donation.donatable) if donation.donatable.title?%>
+                             
+                             <%elsif donation.donatable_type == "ApiNonprofit"%>
+                             <%= donation.donatable.name if !donation.donatable.blank? && donation.donatable.name?%>
+                                                        
+                            <%end%>
+                        </div><!-- End of span8 -->
+                        
+                        <div class="span2">
+                            <small class="pull-right">
+                                <em><i class="icon-time"></i><%= time_ago_in_words(donation.created_at)%> ago</em>
+                            </small>
+                        </div><!-- End of span2 -->
+                    </div><!-- End of row-fluid -->
+                    
+
+					 </div>         
+
+			    	<% elsif feed.activity_source_type=="Campaign"
+			    	campaign= feed.activity_source
+			    	%>
+			    	
+			    	<div class="well box">
+			    	
+			    	 <div class="row-fluid">
+                        <div class="span2">
+                                <%= link_to get_avatar_small(campaign.user),profile_path(campaign.user.url_param) %> 
+                        </div><!-- End of span2 -->
+                        
+                        <div class="span8">
+                            <strong><%= link_to campaign.user.profile.name,profile_path(campaign.user) if !campaign.user.profile.blank? && campaign.user.profile.name? %></strong><br>started new campaign 
+                            <h3><%= campaign.title.humanize%></h3>
+                        <p><%= campaign.description.truncate(80)%> <em>Campaign ends at  <%=  campaign.end_date.to_formatted_s(:long)  %></em></p>
+                    
+                        <%= link_to " Detail &nbsp; ".html_safe ,user_campaign_detail_path(campaign.user,campaign),:class=>"btn btn-mini" %>
+                        
+                        <%= link_to "Donate" ,user_campaign_detail_path(campaign.user,campaign),:class=>"btn btn-mini btn-primary" %>
+                        </div><!-- End of span8 -->
+                        
+                        <div class="span2">
+                            <small class="pull-right">
+                                <em><i class="icon-time"></i> <%= time_ago_in_words(campaign.created_at)%> ago</em>
+                            </small>
+                        </div><!-- End of span2 -->
+                    </div><!-- End of row-fluid -->
+			    	 	
+	              
+		</div>    
+					           
+					<% else%>
+	
+					<%end%>
+		    
+		    
+		 
+	 
+	<% end %>
+	  <%= will_paginate @feeds ,:renderer => BootstrapLinkRenderer %>
+	<% else %>
+	<div class="well box" id = "no_feed">
+	    No activity feeds.
+	    </div>
+<% end %>
+
+ </div><!-- End of feeds -->
+
+
+
+
+
+
+
+

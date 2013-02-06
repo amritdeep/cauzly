@@ -1,0 +1,113 @@
+<script src="//connect.facebook.net/en_US/all.js"></script>
+<div id="fb-root"></div>
+<script>
+
+$(document).ready(function() {
+	
+	
+
+FB.init({appId: '<%= FACEBOOK_APP_ID %>', xfbml: true, cookie: true});
+
+$(".invite_friend").click(function() {
+
+sendRequestToRecipients($(this).data('userid'));
+
+})
+
+function sendRequestToRecipients(userid) {
+var user_ids = userid;
+FB.ui({method: 'send',
+	link : '<%= fb_invite_url  %>',
+	page:'page',
+	name : 'Join cauzly.com',
+	to: user_ids
+	}, requestCallback);
+	}
+
+	function sendRequestViaMultiFriendSelector() {
+		
+	}
+
+	function requestCallback(response) {
+		//console.log("success....");
+
+	}
+
+	})</script>
+<div class="row-fluid">
+	<div class="span3">
+		<%= render 'invite_menu'%>
+	</div>
+	
+	<% if @oauth_token.blank? %>
+	<div class="span9">
+		<h3>Facebook</h3>
+		<strong>Invite Friends</strong>
+		<br />	<br />
+		<%fbalink=  image_tag("socialicons/facebook24.png",:style=>"display:inline; border:0; height:12px; padding-right:10px;") + "  Please authenticate Facebook"%>
+		 <%= link_to fbalink.html_safe, "/auth/facebook",:class=>"btn btn-primary" %> <br />
+	</div>
+	<%else%>
+	
+	<div class="span5">
+		<h3>Facebook</h3>
+		<strong>Invite Friends</strong>
+		<br />
+		<br />
+		<ul class="invitelist">
+			<%
+			cnt = 0
+			@friends.each do |friend|
+			cnt = cnt+1
+			%>
+			<li>
+				<div class="pull-left">
+					<% profile_path = friend['pic_square'] %>
+
+					<%= image_tag profile_path,:style=>"height:25px; width:25px;" %>
+
+					<%= friend['name']%>
+				</div>
+				<div class="pull-right btn btn-mini invite_friend" data-userid="<%= friend['uid']%>" >
+					Invite
+				</div>
+			</li>
+			<%end%>
+		</ul>
+	</div>
+	<div class="span4">
+		<div class="row-fluid">
+			<% if !@cauzly_friends.blank?%>
+			<h3>Facebook friends in Cauzly</h3>
+		<ul class="invitelist">
+			<%
+			cnt = 0
+			@cauzly_friends.each do |friend|
+				user = Authentication.find_by_uid(friend['uid']).user
+				
+			cnt = cnt+1
+			%>
+			<% if user%>
+			<li>
+				<div class="pull-left">
+					<% profile_path = friend['pic_square'] %>
+
+					<%= image_tag profile_path,:style=>"height:25px; width:25px;" %>
+
+					<%= friend['name']%>
+				</div>
+				<div class="pull-right" data-userid="<%= friend['uid']%>" >
+					<div class="followlinks_<%= user.id%>">
+					<%= render :partial=>"follow/followunfollowpublic_links",:locals=>{:user => user}%>
+				</div>
+				</div>
+			</li>
+			<% end %>
+			<%end%>
+		</ul>
+		
+		<% end %>
+		</div>
+	</div>
+	<%end%>
+</div>

@@ -1,0 +1,6 @@
+<% if @status%>
+$("#status").html("<div class='alert alert-success'><%=@msg%></div>");
+$("#invite_email_form")[0].reset();
+<% else %>
+$("#status").html("<div class='alert alert-error'><%=@msg%></div>");
+<% end %>

@@ -1,0 +1,51 @@
+<%= form_for([:user,@campaign]) do |f| %>
+<fieldset> <legend>Campaign Detail</legend>
+<%= render :partial => "shared/validation_msg",:locals => {:obj=> @campaign} %>
+  <div class="control-group">
+  	<div class="control-label">
+    <%= f.label :title %>
+    </div>
+    <div class="controls">
+    <%= f.text_field :title,{:placeholder => "Title of your campaign",:required => true,:size=>63,:style=>"width:auto;"} %>
+    </div>
+    </div>
+  <div class="control-group">
+  	<div class="control-label">
+    <%= f.label "Category" %>
+    </div>
+    <div class="controls">
+    <%= f.collection_select :campaign_category_id,CampaignCategory.order("name asc"),:id,:name,:include_blank => true%>
+    </div>
+    </div>
+  <div class="control-group">
+  	<div class="control-label">
+    <%= f.label :description %>
+    </div>
+    <div class="controls">
+  
+    <%= f.text_area :description, {:placeholder => "Description of your campaign",:required => true,:size=>"60x10",:style=>"width:auto;"} %>
+    </div>
+    </div>
+    
+  <div class="control-group">
+  	<div class="control-label">  
+    <%= f.label :start_date %>
+  </div>
+  <div class="controls dateselect">
+    <%= date_select("campaign", "start_date", :default => Time.now,:order => [:month, :day, :year],:start_year=>Date.today.year )%>
+  </div>
+  </div>
+  <div class="control-group">
+  	<div class="control-label">  
+    <%= f.label :end_date %>
+  </div>
+  <div class="controls dateselect">
+    <%= date_select("campaign", "end_date", :default => 15.days.from_now,:order => [:month, :day, :year],:start_year=>Date.today.year )%>
+  <br />
+  Please limit campaigns to no more than 60 days
+  </div>
+  </div>
+    <div class="form-actions">
+	    <%= f.submit "Save" %>
+	  </div></fieldset>
+<% end %>

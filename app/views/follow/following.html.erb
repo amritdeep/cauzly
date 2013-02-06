@@ -1,0 +1,69 @@
+<h3> Following</h3>
+  <hr />
+  <% if @following.blank?%>
+  <div class="well box alert">No following.</div>
+  <%else%>
+  <div class="my_following">
+  <% @following.each do |user| %> 
+    
+    	<div class="well box" id='following_<%=user.id%>'>
+			<div class="row-fluid">
+					
+			    <div class="span2">
+						
+							
+							
+						<%= link_to get_avatar_small(user),profile_path(user.url_param) %>
+					
+					
+					
+					
+					
+				</div>
+			    <div class="span8">
+			    		<% unless user.profile.nil? %>
+		                  	<h3><%= link_to user.profile.name ,profile_path(user.url_param),:class=>"" %></h3>
+		                    <p><%= truncate(user.profile.description,:length=>150)%></p>
+			       		
+		    		   	<% else %>
+						   <h3>&nbsp;</h3>
+					      	<p>&nbsp;</p>
+						<% end %>
+						<% if !user.profile.nil? && user.profile.website? %>
+			        			<a href="<%= user.profile.website%>" target = "_blank"><%= user.profile.website %></a>
+							<%end%>
+							<br />
+							<%= user.address.city_state if !user.address.blank? && !user.address.city_state.nil?%>
+							<br>
+					<%= link_to "View Profile",profile_path(user.url_param),:class=>"btn btn-mini btn-primary" %>
+					                
+				</div><!-- .divCharity -->
+				<div class="span2">
+					<i><%= user.user_type.name %></i>
+					
+					<br />
+					<% if current_user && current_user.following?(user) && controller_name == "follow"%>
+					<%=  link_to "Unfollow", unfollow_user_path(user.id), :remote => true, :class => ' btn btn-primary'  %>
+					<%end%>
+					
+					
+					<% if current_user && controller_name != "follow"%>
+					
+					<%if current_user.id!=user.id%>
+						<div class="followlinks_<%= user.id%>">
+							
+							<%= render :partial => "follow/followunfollowpublic_links",:locals=>{:user => user}%>
+							
+						 </div>
+						<%end%> 
+						<% end %>
+		   			
+		    </div>
+		    </div>
+		</div>
+	  <%end%>
+	</div>
+	<div class="pagination-centered" id="pagination_link">
+  		<%= get_more_will_paginate(@following, "following_pagination")%>
+	</div>
+	<%end%>

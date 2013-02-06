@@ -1,0 +1,26 @@
+<div class="well box">
+    
+<% if @donation.donatable_type == "ApiNonprofit"%>
+<div class=""><h3>Make donation to:<br />  <%= @api_nonprofit.name%>  
+   </h3>  
+   <%= @api_nonprofit.full_address %>   
+</div>
+<hr/>
+<%= form_for @api_nonprofit,:url => api_createnonprofitdonation_path(:uuid =>@api_nonprofit.uuid,:ein =>@api_nonprofit.ein  ) do |f|%>
+
+<%= f.hidden_field :uuid,:value => @api_nonprofit.uuid%>
+<%= f.hidden_field :ein,:value => @api_nonprofit.ein%>
+<%= f.hidden_field :name,:value => @api_nonprofit.name%>
+<%= f.hidden_field :state,:value => @api_nonprofit.state%>
+<%= f.hidden_field :zip_code,:value => @api_nonprofit.zip_code%>
+<%= f.hidden_field :address1,:value => @api_nonprofit.address1%>
+<%= f.hidden_field :address2,:value => @api_nonprofit.address2%>
+<%= f.hidden_field :city,:value => @api_nonprofit.city%>
+<%= f.hidden_field :phone_number,:value => @api_nonprofit.phone_number%>
+<%= f.hidden_field :full_address,:value => @api_nonprofit.full_address%>
+<%= render :partial => "shared/validation_msg" , :locals=>{:obj=>@api_nonprofit}%>
+<%= f.fields_for :donation do |d|%>
+<%= render :partial => "form_fields" , :locals=>{:f=>d}%>
+<% end %>
+<%end%> <%end%> 
+</div>

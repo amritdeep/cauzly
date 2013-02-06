@@ -1,0 +1,48 @@
+
+<div class="row-fluid">
+<div class="span3">
+	<div class="well">
+		<ul class="nav nav-list">
+   			<li class="nav-header">Filter By Categories</li>
+   			<% CampaignCategory.all.each do |cat| %>
+   				<li <%if controller_name=="campaigns" && !params[:id].blank? && params[:id]== cat.slug%>class="active"<%end%>> <%= link_to cat.name,by_category_campaigns_path(cat)%></li>
+   			<% end %>
+   		</ul>
+	
+	
+	</div>
+	
+
+</div>
+<div class="span9">	
+
+	    <ul class="breadcrumb">
+		    <li>
+		   		<%= link_to "<i class='icon-home'></i>Home".html_safe,root_path%>
+		     	<span class="divider">/</span>
+		    </li>
+		    <li><%= link_to "Active campaigns".html_safe,campaigns_path%>
+		     	<span class="divider">/</span> 
+		    </li>
+		    <li class="active"><%= @campaign_category.name %></li>
+    	</ul>
+		<div class="">
+			
+				<div class="row-fluid" id ="campaign_list">
+					
+				<% unless @campaigns.blank?%>
+					<%= render @campaigns%>		
+				
+				<% end %>
+				
+				</div>
+				<div class="row-fluid">
+								<div class="pagination-centered" id="paging_container">			
+										<%= get_more_will_paginate(@campaigns, "campaign_list")%>
+								</div>
+				</div>
+		</div>
+</div>
+</div>
+
+

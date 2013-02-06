@@ -1,0 +1,38 @@
+<% unless @non_profit.nil? %>
+	<h2><%= @non_profit.non_profit_name%></h2>
+	<div class="feedBox">
+		<h3>Misson</h3>
+		<p><%= simple_format(@non_profit.mission)%></p>
+		
+    </div>
+    <div class="feedBox">
+    	<h3>Vision</h3>
+		<p><%= @non_profit.vision%></p>
+	</div>
+    
+	<div class="feedBox">
+	<table>
+		<tr>
+			<td> Year Founded </td>
+			<td> <%= @non_profit.year_founded%></td>
+		</tr>
+		<tr>
+			<td> President or ChairPerson </td>
+			<td> <%= @non_profit.president%> </td>
+		</tr>
+		<tr>
+			<td>Contact Person</td>
+			<td><%= @non_profit.contact_person%></td>
+		</tr>
+		<tr>
+			<td>Phone</td>
+			<td><%= @non_profit.phone%></td>
+		</tr>
+		<tr>
+			<td>Website</td>
+			<td><a href="<%= @non_profit.website%>" target = "_blank"><%= @non_profit.website %></a></td>
+		</tr>
+	</table>
+	
+	</div>
+<% end %>

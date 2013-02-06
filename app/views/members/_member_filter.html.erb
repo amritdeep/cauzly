@@ -1,0 +1,18 @@
+
+<ul class="breadcrumb">
+<% if params[:state_id]%>
+
+<% "A".upto("Z") do |l| -%>  
+	<li><%= link_to_unless_current l, members_state_index_member_path(:letter => l) %><span class="divider">|</span></li>
+ 
+<% end %>
+
+<% else %>
+
+<% "A".upto("Z") do |l| -%>  
+	<li><%= link_to_unless_current l, members_index_member_path(:letter => l) %><span class="divider">|</span></li>
+ 
+<% end %>
+
+<% end %>
+</ul>

@@ -1,0 +1,45 @@
+<div class="row-fluid">
+<div class="span3">
+	<%= render 'invite_menu'%>
+</div>
+<div class="span5">
+<div id="status">
+	</div>
+<div class="form-verticle">
+	<div class="control-group">
+		<div class="controls">
+			<h3>Invite Your Friends to Cauzly</h3>
+		</div>
+	</div>
+	<%= form_tag('invite_email',:method => :post,:id=>"invite_email_form", :remote => true) do %>
+	
+	<% (1..4).each  do |i|%>
+	<div class="control-group">
+		<div class="controls">
+			<% if i==1 %>
+			<%= email_field_tag "email[]","",{:placeholder=>"Email Address #{i}",:class=>"input-xlarge"}%>
+			<% else %>
+			<%= email_field_tag "email[]","",{:placeholder=>"Email Address #{i}",:class=>"input-xlarge"} %>
+			
+			<% end %>
+		</div>
+	</div>
+	
+	<% end %>
+	
+	
+	<div class="control-group">
+		<div class="controls">
+			<%= text_area_tag :message,"Hi, I would like to invite you to join cauzly.com",{:placeholder=>"Add a personal note",:class=>"input-xlarge",:size=>"30x5"}%>
+		</div>
+	</div>
+	<div class="control-group">
+		<div class="controls">
+			<%= submit_tag("Send invites",:class=>"btn btn-primary",:data=>{:disable_with => "Processing..."})%>
+		</div>
+	</div>
+	<%end%>
+</div></div>
+	<div class="span4">
+		</div>
+</div>

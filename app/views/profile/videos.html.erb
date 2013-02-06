@@ -1,0 +1,32 @@
+  <ul class="breadcrumb">
+		    <li>
+		   		<%= link_to "<i class='icon-home'></i>Home".html_safe,root_path%>
+		     	<span class="divider">/</span>
+		    </li>
+		    <li><%= link_to "Profile".html_safe,profile_path(@user)%>
+		     	<span class="divider">/</span> 
+		    </li>
+		    <li class="active">Videos 
+		    </li>
+		   
+    	</ul>
+
+  
+  <% unless @videos.blank? %>
+  	   <div class="well box">
+  	    <h3>Videos</h3>
+
+  <ul class="thumbnails">
+  	  <% @videos.each do |user_video|%>
+	  	  <% if user_video.video_url?%>
+		    <li>
+  			<div class="thumbnail user_video well">
+  				  <%= user_video.video_url_html  %>
+		  	</div>
+		  </li>
+		  <% end %>
+	  <% end %>
+	  </ul>
+	  </div>
+  <% end %>
+

@@ -1,0 +1,8 @@
+<div class="cmspage well">
+<% @title = @page.page_title.humanize%>
+<h1>
+    <%= @page.page_title%>
+</h1>
+<hr>
+    <%=@page.page_content.html_safe%>    
+</div>

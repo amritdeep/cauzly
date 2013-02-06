@@ -1,0 +1,37 @@
+<div class="">
+    <h3>Images</h3>
+    <hr />
+    <div class="box">
+        <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
+
+            <ul class="thumbnails">
+                <% unless current_user.user_images.blank? %>
+                <% current_user.user_images.each do |user_image|%>
+                <% if user_image.attachment.exists? %>
+
+                <li>
+                    <div class="thumbnail">
+                        <%= link_to image_tag(user_image.attachment.url(:thumb)),user_image.attachment(:medium),:rel=>"gallery" ,:class=>""%>
+                        <div class="caption">
+                            <%= link_to "Remove",user_image,confirm: 'Are you sure?', method: :delete %>
+                        </div>
+                    </div>
+                </li>
+
+                <% end %>
+
+                <% end %>
+
+                <% end %>
+
+            </ul>
+
+        </div>
+    </div>
+</div>
+<% if !current_user.user_images.nil? && current_user.user_images.count < 10  %>
+<div class="form-horizontal well box">
+    <%= render :partial =>"user_images/form"%>
+
+</div>
+<% end %>

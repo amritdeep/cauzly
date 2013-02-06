@@ -1,0 +1,178 @@
+
+	<div class="leftPanel">
+	
+		
+	
+	<div class="box">
+	    <p><label>Filter by</label></p>
+	<%= form_for(:filter_by_state_and_type_members ,:url => :filter_by_state_and_type_members,:method=>:post) do |f|%>
+		<%= f.text_field :q,{:placeholder=>"Search keyword",:class=>"input"}%>
+		<% unless @state.blank?%>
+		<%=f.collection_select(:state, @states, :id, :name,
+          {:prompt => "All States",  :selected => @state.id})%>
+<%else%><%=f.collection_select(:state, @states, :id, :name,
+          {:prompt => "All States",  :selected => ""})%>
+          <%end%>	
+			<%= select_tag 'filter_by_state_and_type_members[user_type]', 
+options_from_collection_for_select(@user_types,'id','name',@user_type.id) 
+%>	
+			
+		<%= f.submit "Go" ,:class =>"viewProfile"%>
+		
+		
+	<% end %>
+	
+	 <div class="causeSearchNon">
+        <%= link_to "Search Nonprofits", find_nonprofits_path%>  
+    </div>
+    
+</div>
+	
+
+			
+	</div>
+<div class="rightPanel">
+	 <ul class="breadcrumb">
+		    <li>
+		   		<%= link_to "<i class='icon-home'></i>Home".html_safe,root_path%>
+		     	<span class="divider">/</span>
+		    </li>
+		    <li class="active">Members<span class="divider">/</span></li>
+			
+		    <li class="active"><%= @user_type.name.humanize%><span class="divider">/</span></li>
+		    <li><%= @search_term.html_safe unless @search_term.blank?%></li>		   
+		   
+    	</ul>
+    	
+	<%= render :partial =>"member_filter"%>
+	
+	
+	
+	
+	
+	<% unless @users.empty?%>
+		<% @users.each do |user| %>
+			<div class="well box">
+			<div class="row-fluid">
+					
+			    <div class="span2">
+						
+								<div class="">
+						<%= link_to get_avatar_small(user),profile_path(user.url_param) %>
+										</div>
+					
+				
+								
+				</div>
+				
+			    <div class="span8">
+			    		<% unless user.profile.nil? %>
+		                  	<h3><%= link_to user.profile.name ,profile_path(user.url_param),:class=>"" %></h3>
+		                    <p><%= user.profile.description.truncate(200) if user.profile.description?%></p>
+			       		
+		    		   	<% else %>
+						   <h3>&nbsp;</h3>
+					      	<p>&nbsp;</p>
+						<% end %>
+						<% if !user.profile.nil? && user.profile.website? %>
+			        			<a href="<%= user.profile.website%>" target = "_blank"><%= user.profile.website %></a>
+							<%end%>
+					                
+				</div><!-- .divCharity -->
+				<div class="span2"> 
+					<% if current_user%>
+					<% @user = user%>
+					<%if current_user.id!=@user.id%>
+						<div class="followlinks_<%= @user.id%>">
+							
+							<%= render :partial => "follow/followunfollow_links"%>
+							
+						 </div>
+						<%end%> 
+						<% end %>
+	
+			
+					
+					<br /> 
+					<%= link_to "Detail",profile_path(user.url_param),:class=>"btn btn-primary" %></div>
+		   		
+
+		    </div>
+		    </div>
+		    
+		 <% end %>
+		<%= will_paginate @users ,:renderer => BootstrapLinkRenderer %>
+	<% else %>
+	Sorry no records found!
+	<% end %>
+	
+	
+	<%if false%>
+    <hr />
+    <strong>Didn't find nonprofit you looking for to donate? Search here</strong>
+    <hr />
+    <div id="fgGraphWidgetContainer"></div>
+
+    <script>
+
+    var FG_GRAPHWIDGET_PARAMS = {
+
+    results : {
+
+    selectaction : function(uuid, charity_name, ein) {
+
+    //alert('SELECTED ' + charity_name + ' ' + uuid + ' ein (' + ein + ')');
+     window.location.href = '/donation/apinonprofit/'+uuid+"/"+ein;
+
+    }
+
+    }
+
+    };
+
+    </script>
+
+    <script src="http://assets.firstgiving.com/graphwidget/static/js/fg_graph_widget.min.js"></script>
+    <style>
+        #fgGraphWidgetContainer{width:auto !important;}
+        #fgGraphWidgetContainer #fgResults{width:auto !important;}
+    </style>
+
+<%end%>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+

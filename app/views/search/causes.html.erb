@@ -1,0 +1,57 @@
+<div class="row-fluid">
+	<div class="span3">
+<div class="" style="border-right: solid #888888 1px;">
+ well
+</div>
+	</div>
+<div class="span9">	
+	<div class="well">
+<%= link_to "View All " ,cause_search_index_path%>
+		<div class="myform" style="text-align: right;">
+			
+				<%= form_for(:cause_search ,:url => :cause_search_index,:method=>:get) do |f|%>
+				
+				
+				<lable>Find a cause</label> &nbsp;<%=  autocomplete_field_tag 'cause_keyword', @key, autocomplete_campaign_title_campaigns_path,:size=>40  %>
+					<div class="button" style="display: inline; float: right;margin-left:20px;"> 
+						<%= f.submit "Go"%> 
+			</div>
+				<% end %>			 
+	</div>
+	</div>
+	<h3>Causes</h3>
+	<% @causes.each do |cause| %>
+		 
+		<div class="row-fluid">
+		<div class="span2">		
+		<% if cause.default_image && cause.default_image.attachment.exists? %>
+			<%= image_tag(cause.default_image.attachment(:thumb))%>
+		<% else %>
+		<%= image_tag("no-img100.png")%>
+		<%end%>
+		</div>
+		<div class="span8">
+		
+		<h3>
+						 <%= link_to cause.title ,campaign_path(cause.user,cause) %>
+			    </h3>
+		 	 <p><%= cause.description.truncate(400)%></p>
+			 <p>Cause ends at <em> <%=  cause.end_date.to_formatted_s(:long)  %></em> &nbsp;
+			 </p>
+			    	
+			    	
+</div>
+<div class="span2">
+	 <%= link_to "View Detail" ,campaign_path(cause.user,cause),:class=>"btn" %>
+			
+	</div>
+		
+</div>
+<hr />
+	<% end %>
+
+<%= will_paginate @causes%>
+</div>
+</div>
+</div>
+

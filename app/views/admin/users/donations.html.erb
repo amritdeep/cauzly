@@ -1,0 +1,60 @@
+<h3>Donations</h3> 
+<hr />
+<div class="wordwrap">
+	<%if !@donation.blank?%>
+<table class="table table-bordered table-condensed">
+  <tr class="yellow">
+  	<th>Date</th>
+  	<th>Donated By</th>
+    <th>Donated To</th>
+    
+    <th>Amount</th>
+  
+  </tr>
+
+
+<% @donation.each do |donation| %>
+<tr>
+<td><%= donation.created_at.strftime("%m-%d-%Y") %></td>
+	
+	
+<td>
+	
+	
+	<% user=donation.donor %>
+			<%if !user.profile.blank?%>
+				<%= link_to user.profile.name, profile_path(user),:target => "_blank" %>
+			<% else %>	
+				<%= link_to user.email, profile_path(user),:target => "_blank" %>
+			<%end%>
+
+
+
+</td>	
+
+<td>
+
+	
+		<% user=donation.donatable %>
+		<%=link_to user.profile.name,profile_path(user),:target => "_blank"  unless user.profile.blank?%>
+		
+		
+		
+		
+		</td>
+		<td><%= number_to_currency(donation.amount, :precision => 2)  %></td>
+		</tr>
+		<% end %> 
+		
+
+
+				
+
+
+</table>
+<%= will_paginate @donation ,:renderer => BootstrapLinkRenderer %>
+<%else%>
+			<div class="alert">No Records Found!!!!!!!!!!</div>
+
+<%end%>
+</div>

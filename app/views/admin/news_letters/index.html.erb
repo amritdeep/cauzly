@@ -1,0 +1,37 @@
+<div class="row-fluid">
+<h3 class="pull-left">Listing newsletters</h3>
+
+<%= link_to 'Add newsletter', new_admin_news_letter_path ,:class=>"btn btn-primary pull-right"%>
+</div>
+<br />
+<%if params[:page] %>
+ <%cnt=2*(params[:page].to_i-1) +1%>
+<%else%>
+  <%cnt=1%>
+<%end%>
+
+<table class="table-condensed table table-bordered" >
+  <tr>
+    <th>S.N.</th>
+    <th>Recipients</th>
+    <th>Subject</th>
+    <th>Body</th>
+    <th>Sent status</th>
+    <th></th>
+  </tr>
+
+<% @news_letters.each do |news_letter| %>
+  <tr class="<% if news_letter.sent_status==0%>alert<%else%>alert alert-success<%end%>">
+    <td><%= cnt %>.</td>
+    <td><%= news_letter.recipients %></td>
+    <td><%= news_letter.subject %></td>
+    <td><%= truncate(news_letter.body,:length=>50) %></td>
+    <td><%= news_letter.sent_unsent %></td>
+    <td><%= link_to 'View'.html_safe, admin_news_letter_path(news_letter) %>
+    	<%= link_to '<i class="icon-pencil"></i>'.html_safe, edit_admin_news_letter_path(news_letter) %>
+    	<%= link_to '<i class="icon-trash"></i>'.html_safe, admin_news_letter_path(news_letter), confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+  <% cnt = cnt+1%>
+<% end %>
+</table>
+<%= will_paginate @news_letters ,:renderer => BootstrapLinkRenderer %>

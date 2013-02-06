@@ -1,0 +1,24 @@
+<div class="form-horizontal">
+<%= form_for(@payment_receiving_info,:url => payment_receiving_info_path,:method => :post) do |f| %>
+<fieldset><legend>Paypal email</legend>
+  <small>
+  	Please provide your paypal merchant email address to start a campaign and collect donations.
+  	<br />To create a new merchant account in paypal, Please visit  
+  	<a href="http://www.paypal.com" target="_blank">http://www.paypal.com</a>
+  </small>
+  <br  /><br  />
+  <%= render :partial => "shared/validation_msg",:locals=>{:obj=>@payment_receiving_info} %>
+  
+ <div class="control-group">
+    <%= f.label :email ,:class=>"control-label"%>
+ <div class="controls">
+    <%= f.email_field :email,{:placeholder=>"Paypal merchant/premier email",:required=>true} %> *
+    </div>
+ </div>
+ <div class="form-actions">
+    	<%= f.submit "Update",:class=>"btn-primary" %>
+    	
+  </div>
+</fieldset>
+<% end %>
+</div>

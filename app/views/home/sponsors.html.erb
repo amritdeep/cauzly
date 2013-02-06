@@ -1,0 +1,27 @@
+<div class="fullWidth">
+	<h3>Company Sponsors</h3>
+	<% unless @users.nil?%>
+		<% @users.each do |user| %>
+			<article>
+				 <div class="avtar">
+					    <% unless user.user_logo.nil? %>
+							<%= link_to(image_tag(user.user_logo.attachment(:thumb)),profile_path(user.url_param)) %>
+						<% else %>
+							<%= link_to(image_tag("no-img100.png"),profile_path(user.url_param)) %>
+						<%end%>
+					</div>
+				    <div class="divCharity">
+						<% unless user.sponsor.nil? %>
+	                            <h3><%= link_to user.sponsor.company_name ,profile_path(user.url_param),:class=>"" %></h3>
+	                            <p><%= user.sponsor.about_company.truncate(300)%></p>
+					        	<% unless user.sponsor.company_website.nil? %>
+					        		<a href="<%= user.sponsor.company_website%>" target = "_blank"><%= user.sponsor.company_website %></a>
+								<%end%>
+	                    <% end %>
+						<p align="right"><%= link_to "View Detail",profile_path(user.url_param),:class=>"read-more" %></p>
+					</div><!-- .divCharity -->
+	         </article>
+	   <% end %>
+	<% end %>
+</div>
+

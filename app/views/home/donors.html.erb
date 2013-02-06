@@ -1,0 +1,27 @@
+<div class="fullWidth">
+	<h3>Individual Donors</h3>
+	<% unless @users.nil?%>
+		<% @users.each do |user| %>
+			<article>
+			    <div class="avtar">
+				    <% unless user.user_logo.nil? %>
+						<%= link_to(image_tag(user.user_logo.attachment(:thumb)),profile_path(user.url_param)) %>
+					<% else %>
+						<%= link_to(image_tag("no-img100.png"),profile_path(user.url_param)) %>
+					<%end%>
+				</div>
+			    <div class="divCharity">
+					<% unless user.donor.nil? %>
+	                        <h3><%= link_to user.donor.full_name ,profile_path(user.url_param),:class=>"" %></h3>
+                            <p><%= user.donor.bio.truncate(300)%></p>
+        		
+					<% end %>
+					<p align="right">
+						<%= link_to "View Detail",profile_path(user.url_param),:class=>"read-more" %>
+					</p>
+                </div><!-- .divCharity -->
+           </article>
+  	<% end %>
+<% end %>
+</div>
+

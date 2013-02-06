@@ -1,0 +1,30 @@
+<div class="form-verticle well">
+		  			<%= form_for(@campaign_image ,:url => :addimage_user_campaign) do |f| %>
+				  	<fieldset>
+				  		<legend>Add image</legend>
+				  	<%= render :partial=>"shared/validation_msg",:locals=>{:obj=>@campaign_image}%>
+				  		<div class="control-group">
+                                    <div class="control-label">
+                                        <label>&nbsp;</label>
+                                    </div>
+                                    <div class="controls">
+                                       <div style="height:37px;">&nbsp;</div>
+                                                                      </div>
+                                </div>
+				  				<div class="control-group">
+                                    <div class="control-label">
+                                        <label>Choose Image</label>
+                                    </div>
+                                    <div class="controls">
+                                        <%= f.file_field :attachment,{:required=>:true}%>
+                                    </div>
+                                </div>
+                                
+                                
+				  			  	<div class="form-actions">
+							  		<%= f.submit "Upload"%>
+							  	</div>
+				  	</fieldset>
+				  <%end%>
+		  		</div>	
+		  	

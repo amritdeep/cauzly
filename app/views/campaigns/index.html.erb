@@ -1,0 +1,28 @@
+
+		<div class="leftPanel">
+		<%= render :partial => "campaign_filter"%>
+		</div>
+	
+	
+	<div class="rightPanel">	
+		<ul class="breadcrumb">
+			<li><%= link_to "<i class='icon-home'></i>Home".html_safe,root_path%><span class="divider">/</span></li>
+			<li class="active ">Active campaigns</li>
+		</ul>
+	    
+	   
+			<div id="campaign_list" class ="row-fluid">
+				<% unless @campaigns.blank?%>
+					<%= render @campaigns%>
+				<% else %>
+				<div class="alert">No campaigns found!!</div>
+				<%end%>
+			</div>
+			<div class="row-fluid">
+				<div class="pagination-centered" id="paging_container">			
+						<%= get_more_will_paginate(@campaigns, "campaign_list")%>
+				</div>
+			</div>
+		
+	</div>
+

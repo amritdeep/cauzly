@@ -1,0 +1,176 @@
+<% unless flash[:notice].blank?%>
+<div class="modal " id="" >
+	<div class="modal-header">
+		<%= link_to "x",root_path,:class =>"close" %> <h3>Share Your Donation</h3>
+	</div>
+	<div class="modal-body center" style="height: 300px;">
+		<%if @donation.donatable_type=="User"%>
+		<% user=@donation.donatable%>
+		<div class="row-fluid">
+			<div class="span3">
+				<%= link_to get_avatar_small(user),profile_path(user.url_param) %>
+			</div>
+			<div class="span7">
+				<h3><%= @user.profile.name unless @user.profile.blank?%> donated  <%= number_to_currency(@donation.amount, :precision => 2) %> </h3>
+				<br/>
+				To
+				<br />
+				<% @share_data =""%>
+				<% unless user.profile.blank?%>
+
+				<% @share_data = user.profile.name%>
+				<% end %> <strong><%= @share_data%></strong>
+				<br/>
+				<%= truncate(user.profile.description,:length=> 150) unless user.profile.description.blank?%>
+			</div>
+			<div class="span2">
+				<%= link_to "Donate",user_donation_path(user),:class=>"btn btn-success"%>
+			</div>
+		</div>
+		<%end%>
+
+		<%if @donation.donatable_type=="Campaign"%>
+		<% campaign=@donation.donatable%>
+		<% unless campaign.title.blank?%>
+		<% @share_data = campaign.title%>
+		<%end%>
+		<div class="row-fluid">
+			<div class="span3">
+				<% if campaign.default_image && campaign.default_image.attachment.exists?%>
+				<% @fb_img= attachment(campaign.default_image.attachment(:thumb))%>
+
+				<%end%>
+<% if campaign.default_image && campaign.default_image.attachment.exists?%>
+				<%= image_tag(attachment(campaign.default_image.attachment(:thumb)))%>
+				
+				<br/>
+				<%end%>
+			</div>
+			<div class="span7">
+				<h3><%= @user.profile.name unless @user.profile.blank?%> donated <%= number_to_currency(@donation.amount, :precision => 2) %> </h3>
+				To
+				<br />
+				<strong> <%= campaign.title unless campaign.title.blank?%></strong>
+				<br/>
+				<%= truncate(campaign.description,:length=>500) unless campaign.description.blank?%>
+			</div>
+			<div class="span2">
+				<%= link_to "Donate",campaign_donation_path(campaign),:class=>"btn btn-success"%>
+			</div>
+		</div>
+		<%end%>
+
+		<%if @donation.donatable_type=="ApiNonprofit"%>
+		<% nonprofit=@donation.donatable%>
+		<div class="row-fluid">
+			<div class="span2"></div>
+			<div class="span8">
+				<h3><%= @user.profile.name unless @user.profile.blank?%>  donated <%= number_to_currency(@donation.amount, :precision => 2) %> </h3>
+				To
+				<br />
+				<% @share_data =""%>
+				<% unless nonprofit.name.blank?%>
+
+				<% @share_data = nonprofit.name%>
+				<% end %> <strong><%= @share_data%></strong>
+				<br/>
+			</div>
+			<div class="span2">
+				<%= link_to "Donate",api_nonprofitdonation_path(nonprofit.uuid,nonprofit.ein),:class=>"btn btn-success"%>
+			</div>
+		</div>
+		<%end%>
+		<br/>
+		<% @share_data = "Donated #{number_to_currency(@donation.amount, :precision => 2)} to: #{@share_data}" %>
+
+		<% @share_description="Donated #{number_to_currency(@donation.amount, :precision => 2)} to: #{@share_data}"%>
+		<%= render :partial => "shared/social_share"%>
+	</div>
+	<div class="modal-footer">
+		<%= link_to "Close",root_path, :class=> "close btn btn-primary"%>
+	</div>
+</div>
+<%else%>
+<div class="well box">
+	<%if @donation.donatable_type=="User"%>
+	<% user=@donation.donatable%>
+	<div class="row-fluid">
+		<div class="span2">
+			<%= link_to get_avatar_small(user),profile_path(user.url_param) %>
+		</div>
+		<div class="span8">
+			<h3><%= @user.profile.name unless @user.profile.name.blank?%> donated <%= number_to_currency(@donation.amount, :precision => 2) %> </h3>
+			To
+			<br />
+			<% @share_data =""%>
+			<% unless user.profile.blank?%>
+
+			<% @share_data = user.profile.name%>
+			<% end %> <strong><%= @share_data%></strong>
+			<br/>
+			<%= user.profile.description unless user.profile.description.blank?%>
+		</div>
+		<div class="span2">
+			<%= link_to "Donate",user_donation_path(user),:class=>"btn btn-success"%>
+		</div>
+	</div>
+	<%end%>
+
+	<%if @donation.donatable_type=="Campaign"%>
+	<% campaign=@donation.donatable%>
+	<% unless campaign.title.blank?%>
+	<% @share_data = campaign.title%>
+	<%end%>
+	<div class="row-fluid">
+		<div class="span2">
+			<% if campaign.default_image && campaign.default_image.attachment.exists?%>
+			<% @fb_img= attachment(campaign.default_image.attachment(:thumb))%>
+
+			<%end%>
+
+			<% if campaign.default_image && campaign.default_image.attachment.exists?%>
+			<%= image_tag(attachment(campaign.default_image.attachment(:thumb)))%>
+			<br/>
+			<% end %>
+		</div>
+		<div class="span8">
+			<h3><%= @user.profile.name unless @user.profile.blank?%> donated <%= number_to_currency(@donation.amount, :precision => 2) %> </h3>
+			To
+			<br />
+			<strong> <%= campaign.title unless campaign.title.blank?%></strong>
+			<br/>
+			<%= truncate(campaign.description,:length=>150) unless campaign.description.blank?%>
+		</div>
+		<div class="span2">
+			<%= link_to "Donate",campaign_donation_path(campaign),:class=>"btn btn-success"%>
+		</div>
+	</div>
+	<%end%>
+
+	<%if @donation.donatable_type=="ApiNonprofit"%>
+	<% nonprofit=@donation.donatable%>
+	<div class="row-fluid">
+		<div class="span2"></div>
+		<div class="span8">
+			<h3><%= @user.profile.name unless @user.profile.blank?%>  donated <%= number_to_currency(@donation.amount, :precision => 2) %> </h3> To
+			<br />
+			<% @share_data =""%>
+			<% unless nonprofit.name.blank?%>
+
+			<% @share_data = nonprofit.name%>
+			<% end %> <strong><%= @share_data%></strong>
+			<br/>
+		</div>
+		<div class="span2">
+			<%= link_to "Donate",api_nonprofitdonation_path(nonprofit.uuid,nonprofit.ein),:class=>"btn btn-success"%>
+		</div>
+	</div>
+	<%end%>
+</div>
+<% @share_data = "Donated #{number_to_currency(@donation.amount, :precision => 2)} to: #{@share_data}" %>
+
+<% @share_description="Donated #{number_to_currency(@donation.amount, :precision => 2)} to: #{@share_data}"%>
+<div class="well box">
+	<%= render :partial => "shared/social_share"%>
+</div>
+<%end%> 

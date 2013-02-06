@@ -1,0 +1,29 @@
+
+<%= link_to 'State List', admin_states_path %>
+
+<p>
+  <b>Name:</b>
+  <%= @state.name %>
+  
+</p>
+Cities In this state : 
+
+<% unless @state.cities.nil? %>
+	<table>
+		<tr class="yellow">
+			<th>City</th>
+			<th>Action</th>
+		</tr>
+		<% @state.cities.each do |city| %>
+			<tr>
+				<td><%= city.name  %></td>
+				<td><%= link_to 'Show', admin_city_path(city),:class=>"view button" %> 
+    	<%= link_to 'Edit', edit_admin_city_path(city),:class=>"edit button" %>
+    	<%= link_to 'Destroy', admin_city_path(city), confirm: 'Are you sure?', method: :delete ,:class => "delete button" %></td>
+			</tr>
+		<% end %>
+	</table>
+<% end %>
+
+
+<%= link_to 'Edit', edit_admin_state_path(@state) %> 

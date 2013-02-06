@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h4>Hello, <%= @email %></h4>
+    	  <b><%=  @user.display_name %></b> has invited you to join cauzly.
+          
+          <%= simple_format(@message)%>
+          
+          
+          <br />
+    
+         Cauzly combines social fundraising and project crowdfunding while building the most powerful community of online donors and funders
+    	
+    	 
+        	 <%= link_to "Join cauzly.com now",@url,:target=>"_blank"%>
+     	<br />
+    	
+    	<br />
+    	Regards<br />
+    	<p>Cauzly.com</p>
+   </body>
+</html>

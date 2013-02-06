@@ -1,0 +1,31 @@
+<div class="form-horizontal">
+	<fieldset>
+		<legend>
+			Newsletter detail
+		</legend>
+		<%= form_for([:admin,@news_letter]) do |f| %>
+		<%= render :partial => "shared/validation_msg",:locals=>{:obj=>@news_letter}%>
+		<div class="control-group">
+			<%= f.label "recipients" ,:class=>"control-label" %>
+			<div class="controls">
+				<%= f.collection_select :user_type_id,UserType.user_types,:id,:name,:include_blank => "All" %>
+			</div>
+		</div>
+		<div class="control-group">
+			<%= f.label :subject,:class=>"control-label" %>
+			<div class="controls">
+				<%= f.text_field :subject,:class=>"input-xxlarge" %>
+			</div>
+		</div>
+		<div class="control-group">
+			<%= f.label :body,:class=>"control-label" %>
+			<div class="controls">
+				<%= f.text_area :body,{:class=>"input-xxlarge",:rows=>10} %>
+			</div>
+		</div>
+		<div class="form-actions">
+			<%= f.submit "Save",:class=>"btn-primary" %>
+		</div>
+		<% end %>
+	</fieldset>
+</div>

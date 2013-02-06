@@ -1,0 +1,12 @@
+<% linkupdate = capture do %>
+	<%= render :partial=>"follow/followunfollow_links"%>
+<% end %>
+$('#processing .modal-body').html('<div class="alert alert-success">Followed Successfully</div>');
+$('.followlinks_<%= @user.id%>').html('<%= escape_javascript(linkupdate) %>');
+setTimeout(function(){
+		$("#processing").modal("hide");
+		$('#processing .modal-body').html('<%= image_tag("icons/loading.gif")%>');
+    }, 1000);
+
+// to enable modal popup after in ajax rendered contents
+$('a.ajax').click(function(){$('#processing').modal('show')})

@@ -1,0 +1,43 @@
+<% if @user &&  current_user && @user == current_user %>
+
+<% unless current_user.has_profile?  %>
+	<div class="alert alert-info">
+		  <a class="close" data-dismiss="alert">×</a>
+    <%= link_to "Please update your profile information.",update_profile_path %>
+  	</div><!-- .alert-3 -->
+<% end %>
+<% if current_user.has_profile? &&  !current_user.profile.description? %>
+	<div class="alert alert-info">
+		  <a class="close" data-dismiss="alert">×</a>
+    <%= link_to "Please update your profile information.",update_profile_path %>
+  	</div><!-- .alert-3 -->
+<% end %>
+
+<% if current_user.user_logo.nil?%>
+	<div class="alert alert-info">
+		 <a class="close" data-dismiss="alert">×</a> 
+    	 <%= link_to "Please update your profile picture.",update_logo_path %>
+  	</div><!-- .alert-3 -->
+<% end %>
+
+<% if current_user.profile_name.nil?%>
+	<div class="alert alert-info">
+		 <a class="close" data-dismiss="alert">×</a>
+    	<%= link_to "Please update your Cauzly username.",profile_name_update_path %>
+  	</div><!-- .alert-3 -->
+<% end %>
+
+<% if current_user.social_link.nil?%>
+	<div class="alert alert-info">
+		 <a class="close" data-dismiss="alert">×</a>
+    	<%= link_to "Please update your social profiles. ",social_link_update_path %>
+    	 	</div><!-- .alert-3 -->
+  <% end %>
+<% if current_user.address.nil?%>
+	<div class="alert alert-info">
+		 <a class="close" data-dismiss="alert">×</a>
+    	 <%= link_to "Please update your address.",user_address_update_path %>
+  	</div><!-- .alert-3 -->
+<% end %>
+
+<%end%>

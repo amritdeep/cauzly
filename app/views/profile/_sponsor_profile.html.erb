@@ -1,0 +1,11 @@
+<% unless @sponsor.nil? %>
+	<h2><%= @sponsor.company_name%></h2>
+	<a href="<%= @sponsor.company_website%>" target = "_blank"><%= @sponsor.company_website %></a>
+	<br />
+	<%= simple_format(@sponsor.about_company)%>
+	<br />
+	<br />
+	
+	Contact Person : 
+	<%= @sponsor.contact_person %> / Email:<%= @sponsor.contact_person_email%>
+<% end %>

@@ -1,0 +1,28 @@
+
+            <div class="box">
+                <p><label>Filter by</label></p>
+<%= form_for(:filter_campaigns ,:url => :filter_campaigns,:method=>:post) do |f|%>
+		
+		<% unless @category.blank?%>
+		<%=f.collection_select(:category_id, CampaignCategory.all, :id, :name,
+          {:prompt => "All Categories",  :selected => @category.id})%>
+<%else%><%=f.collection_select(:category_id,  CampaignCategory.all, :id, :name,
+          {:prompt => "All Categories",  :selected => ""})%>
+          <%end%>	
+	<% unless @state.blank?%>
+		<%=f.collection_select(:state_id, State.alphabetically, :id, :name,
+          {:prompt => "All States",  :selected => @state.id})%>
+<%else%><%=f.collection_select(:state_id, State.alphabetically, :id, :name,
+          {:prompt => "All States",  :selected => ""})%>
+          <%end%>	
+	
+			<%= f.select :sort_order, [['Ending soonest','expiring'],['Recently added',"recent"]],{:selected => params[:sort_order]
+ 
+}%>	<br />
+			
+		<%= f.submit "Go".html_safe ,:class =>"btn btn-primary"%>
+		
+		
+	<% end %>
+	</div>
+

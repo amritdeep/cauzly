@@ -1,0 +1,27 @@
+<div>
+    <ul class="nav nav-list">
+    	<li <%if controller_name=="profile" && action_name=="index"%> class="active" <%end%>>
+   			<%= link_to "<strong><i class='icon-user'></i>Profile</strong>".html_safe,profile_path(@user) %></li>
+   		<% if false %>
+   		
+   		<li <%if controller_name=="profile" && action_name=="images"%> class="active" <%end%>>
+   			<%= link_to "<strong><i class='icon-picture'></i>Images</strong>".html_safe,profile_images_path(@user) %></li>
+   		<li <%if controller_name=="profile" && action_name=="videos"%> class="active" <%end%>>
+   			<%= link_to "<strong><i class='icon-film'></i>Videos</strong>".html_safe,profile_videos_path(@user) %></li>
+   		
+   		<% end %>
+   		
+   		<%if @user.is_non_profit?%>
+    	<li <%if(controller_name=="profile" && (action_name=="campaigns" || action_name=="campaign_detail"))%> class="active" <%end%>>
+   			<%= link_to "<strong><i class='icon-th'></i>Campaigns</strong>".html_safe,profile_campaigns_path(@user) %></li>
+   		
+    <%end%>
+    <li <%if controller_name=="profile" && action_name=="follower"%> class="active" <%end%>>
+   			<%= link_to "<i class='icon-th'></i><strong>#{pluralize(@user.followers_count,'Follower')} </strong>".html_safe,profile_follower_path(@user) %></li>
+    <li <%if controller_name=="profile" && action_name=="following"%> class="active" <%end%>>
+   			<%= link_to "<i class='icon-th'></i><strong>#{@user.follow_count} Following</strong>".html_safe,profile_following_path(@user) %></li>
+   		
+    </ul>
+
+</div>
+<br />

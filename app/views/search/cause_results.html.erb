@@ -1,0 +1,19 @@
+	<h3>Causes</h3>
+	
+	<% @causes.each do |cause| %>
+		 <div class="feedBox">	<div style="float: left;width:110px;">
+		<% if cause.default_image && cause.default_image.attachment.exists? %>
+			<%= image_tag(cause.default_image.attachment(:thumb))%>
+		<% end %>
+		</div>
+		<div style="margin-left: 120px;">
+		<h3><%= cause.title%></h3>
+		 	 <p><%= cause.description.truncate(400)%></p>
+			 <p>Cause ends at <em> <%=  cause.end_date.to_formatted_s(:long)  %></em> &nbsp;
+			 </p>
+			 	<%= link_to "View Detail" ,cause_path(cause.user,cause),:class=>"read-more" %>
+		</div>
+
+		 </div>
+
+	<% end %>

@@ -1,0 +1,14 @@
+
+
+<%= render :partial =>"layouts/header"%>
+    	
+				<%= render :partial =>"shared/admin_nav" if user_signed_in? && current_user.is_admin?%>
+		
+			
+    <div class="row-fluid ">
+	   	   		<div class="well">
+	   	   		<%= yield %>
+	   	   		</div>
+			</div>
+	
+<%= render :partial => "layouts/footer"%>

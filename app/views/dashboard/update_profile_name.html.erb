@@ -1,0 +1,42 @@
+<div class="box">
+<div class="form-horizontal">
+	
+<%= form_for(@user,:url => profile_name_update_path,:method => :post) do |f| %>
+  <fieldset><legend>Update  Username</legend>
+  
+  <%= render :partial => "shared/validation_msg",:locals=>{:obj=>@user} %>
+  <% if @user.profile_name_clamable? %>
+  <div class="alert alert-error">
+  	
+  Cauzly has chosen to pre-reserve 4,000 usernames for selected individuals and companies.
+<br />
+You might be the person or company this username was reserved for.
+<br />
+If you would like to request this username from the administrator, 
+ <%= link_to "please click here",claim_request_url(@user.profile_name) %>
+ 
+ </div>
+ 
+ 
+<%end%>
+
+  <div class="control-group">
+    <%= f.label :profile_name,:class=>"control-label" %>
+    <div class="controls">
+    http://cauzly.com/
+    
+    <%= f.text_field :profile_name ,:required=>true%>
+   
+    <br/>
+    <i>
+  	Example : http://cauzly.com/&lt;username&gt;. &nbsp;
+  	<i/>
+     </div>
+     </div>
+  	
+   <div class="form-actions">
+    <%= f.submit "Save" %>
+  </div>
+<% end %>
+</div>
+</div>

@@ -1,0 +1,26 @@
+<div id="fgGraphWidgetContainer"></div>
+
+    <script>
+
+    var FG_GRAPHWIDGET_PARAMS = {
+
+    results : {
+
+    selectaction : function(uuid, charity_name, ein) {
+
+    //alert('SELECTED ' + charity_name + ' ' + uuid + ' ein (' + ein + ')');
+     window.location.href = '/donation/apinonprofit/'+uuid+"/"+ein;
+
+    }
+
+    }
+
+    };
+
+    </script>
+
+    <script src="http://assets.firstgiving.com/graphwidget/static/js/fg_graph_widget.min.js"></script>
+    <style>
+        #fgGraphWidgetContainer{width:auto !important;}
+        #fgGraphWidgetContainer #fgResults{width:auto !important;}
+    </style>

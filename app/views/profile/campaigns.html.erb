@@ -1,0 +1,48 @@
+ <ul class="breadcrumb">
+		    <li>
+		   		<%= link_to "<i class='icon-home'></i>Home".html_safe,root_path%>
+		     	<span class="divider">/</span>
+		    </li>
+		    <li><%= link_to "Profile".html_safe,profile_path(@user)%>
+		     	<span class="divider">/</span> 
+		    </li>
+		    <li class="active">Campaigns 
+		    </li>
+		   
+    	</ul>
+
+<% unless @campaigns.blank? %>
+	
+	
+		<% @campaigns.each do |uc|%>
+	
+	
+	<div class="well box" >
+			<div class="row-fluid">
+				
+					<div class="span3">
+						<div class="thumbnail">
+						<% if uc.default_image && uc.default_image.attachment.exists? %>
+							<%= image_tag(uc.default_image.attachment(:thumb))%>
+						<% else %>
+							<%= image_tag("no-img100.png") %>
+						<% end %>
+						</div>
+					</div>
+					<div class="span7 wordwrap">
+						<h3><%= uc.title%></h3>
+					 	 <p><%= uc.description.truncate(250)%></p>
+						 <div class="span">End date <strong> <%=  uc.end_date.strftime("%m/%d/%Y")  %></strong>
+					</div>
+					</div>
+					<div class="span2 center">
+						<%= link_to " Detail &nbsp; ".html_safe ,campaign_path(uc),:class=>"btn" %>
+						
+					</div>
+				</div>
+			</div>
+		<% end %>
+<% else %>	
+<div class="alert">No campaigns.</div>
+	
+<% end %>

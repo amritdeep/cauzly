@@ -1,0 +1,5 @@
+<%content= capture do %>
+<%= render @campaigns  %>
+<%end%>
+$("#campaign_list").append("<%= escape_javascript(content) %>");
+$("#paging_container").html("<%= escape_javascript(get_more_will_paginate(@campaigns, 'campaign_list')) %>");

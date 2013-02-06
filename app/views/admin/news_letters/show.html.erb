@@ -1,0 +1,31 @@
+<div class="row-fluid">
+
+<strong class="pull-left"><%= @news_letter.subject %></strong>
+
+<%= link_to 'Back to list', admin_news_letters_path,:class=>"btn pull-right" %>
+</div>
+<br />
+<table class="table table-stripped">
+	<tr>
+		<td>Recipients</td>
+		<td><%= @news_letter.recipients %></td>
+	</tr>
+	<tr>
+		<td>Subject</td>
+		<td><%= @news_letter.subject %> </td>
+	</tr>
+	<tr>
+		<td>Body</td>
+		<td><%= simple_format(@news_letter.body) %></td>
+	</tr>
+	<tr>
+		<td>Status</td>
+		<td class=""><%= @news_letter.sent_unsent %> </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td> <%= link_to 'Edit', edit_admin_news_letter_path(@news_letter), :class=>"btn btn-primary"%> 
+ <%= link_to "Send", send_news_letter_admin_news_letter_path(@news_letter),:class=>"btn btn-primary"%> </td>
+	</tr>
+
+</table>

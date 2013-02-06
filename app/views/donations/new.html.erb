@@ -1,0 +1,27 @@
+<div class="well box">
+    
+<% if @donation.donatable_type == "User"%>
+<div class=""><h3>Make donation to:  <%= @user.profile.name unless @user.profile.blank?%><%= ", " + "#{@user.address.city_name}".humanize unless @user.address.blank? %>
+   </h3>     
+</div>
+<hr/>
+<%= form_for @donation,:url => user_donation_path(@user) do |f|%>
+
+
+<%= render :partial => "shared/validation_msg" , :locals=>{:obj=>@donation}%>
+
+<%= render :partial => "form_fields" , :locals=>{:f=>f}%>
+
+<%end%> 
+<%else%>
+<div class=""><h3>Make donation to: <%= @user.profile.name unless @user.profile.blank?%> </strong> <%= @user.address.city_name unless @user.address.blank? %>
+</h3>
+</div><hr/>
+<%= form_for @donation,:url => campaign_donation_path(@campaign) do |f|%>
+
+<%= render :partial => "shared/validation_msg" , :locals=>{:obj=>@donation}%>
+<%= render :partial => "form_fields" , :locals=>{:f=>f}%>
+
+<%end%> 
+<%end%>
+</div>

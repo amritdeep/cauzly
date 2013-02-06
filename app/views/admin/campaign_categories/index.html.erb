@@ -1,0 +1,27 @@
+<h1>Listing campaign_categories</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Slug</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @campaign_categories.each do |campaign_category| %>
+  <tr>
+    <td><%= campaign_category.name %></td>
+    <td><%= campaign_category.description %></td>
+    <td><%= campaign_category.slug %></td>
+    <td><%= link_to 'Show', campaign_category %></td>
+    <td><%= link_to 'Edit', edit_campaign_category_path(campaign_category) %></td>
+    <td><%= link_to 'Destroy', campaign_category, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Campaign category', new_campaign_category_path %>

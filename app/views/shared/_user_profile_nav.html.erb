@@ -1,0 +1,70 @@
+<div>
+    <ul class="nav nav-list">
+   		<li <%if controller_name=="dashboard" && action_name=="index"%> class="active" <%end%>>
+   			<%= link_to "<i class='icon-list-alt'></i>Dashboard".html_safe ,dashboard_path%></li>
+    	<% if false %>
+    	<li <%if controller_name=="dashboard" && action_name=="profile"%> class="active" <%end%>>
+   			<%= link_to "<i class='icon-user'></i>Profile".html_safe ,dashboard_profile_path%></li>
+    	<% end %>
+    	<% if controller_name == "authentications" || controller_name == "settings" %>
+ 			<li class="nav-header"><i class='icon-cog'></i>Settings</li> 
+ 			<li <%if controller_name=="settings" && action_name=="changepassword"%> class="active" <%end%>>
+ 				<%= link_to "<i class='icon-edit'></i>Change Password".html_safe,changepassword_settings_path%></li>
+ 			<li <%if controller_name=="authentications" && action_name=="index"%> class="active" <%end%>>
+ 				<%= link_to "<i class='icon-edit'></i>Facebook/Twitter Account".html_safe,social_accounts_settings_path%></li>
+ 	 	<% else %>
+    	
+    	
+    	<li <%if controller_name=="dashboard" && action_name=="update_profile"%> class="active" <%end%>>
+    		<%= link_to "<i class='icon-edit'></i>General Info".html_safe,update_profile_path %></li>
+    	<li <%if controller_name=="dashboard" && action_name=="update_logo"%> class="active" <%end%>>
+    		<%= link_to "<i class='icon-picture'></i>Profile Picture".html_safe,update_logo_path %></li>
+    	<li <%if controller_name=="dashboard" && action_name=="update_profile_name"%> class="active" <%end%>>
+    		<%= link_to "<i class='icon-edit'></i>Username".html_safe ,profile_name_update_path%></li>
+   		<li <%if controller_name=="dashboard" && action_name=="update_social_links"%> class="active" <%end%>>
+   			<%= link_to "<i class='icon-th'></i>Social Profiles".html_safe,social_link_update_path %></li>
+   		<li <%if controller_name=="dashboard" && action_name=="update_address"%> class="active" <%end%> >
+   			<%= link_to "<i class='icon-th-large'></i>Address".html_safe,user_address_update_path %></li>
+   		<li <%if controller_name=="dashboard" && action_name=="images"%> class="active" <%end%>>
+   			<%= link_to "<i class='icon-picture'></i>Images".html_safe,userimages_path %></li>
+   		<li <%if controller_name=="dashboard" && action_name=="videos"%> class="active" <%end%>>
+   			<%= link_to "<i class='icon-film'></i>Videos".html_safe,uservideos_path %></li>
+   		
+   		
+   		
+   		
+   		
+   		<!---<li class="divider"></li>
+   		<li <%if controller_name=="dashboard" && action_name=="payment_receiving_info"%> class="active" <%end%>>
+   			<%= link_to "<i class=''></i>Paypal Email".html_safe,payment_receiving_info_path %></li>
+   			--->
+   		
+   			
+   			
+   			
+   		<li class="divider"></li>
+   		<li <%if controller_name=="user_campaigns" && action_name=="index"%> class="active" <%end%>>
+   			<%= link_to "<strong><i class='icon-th'></i>Campaigns</strong>".html_safe,user_campaigns_path  if current_user.is_non_profit? %></li>
+   		<%end%>
+   		 <li class="divider"></li>
+   		<li class=" nav-header <%if controller_name=="donation_details" && action_name=="details_donations_made"%> active <%end%>">
+   			<%= link_to "My Donations",details_donations_made_path %></li>
+   			
+   			
+   			<li class=" nav-header <%if controller_name=="donation_details" && action_name=="details_donations_received"%>active <%end%>">
+   			<%= link_to "Donations Received",details_donations_received_path if current_user.is_non_profit? %></li>
+   			
+   		
+    <li class="divider"></li>
+    <li class="nav-header">
+      <%= link_to "#{@user.follow_count} following", user_following_path %>
+     </li>
+     <li class="nav-header">
+     	<%= link_to pluralize(@user.followers_count,'follower'), user_follower_path,  :class => '' %>
+    
+     	
+     </li>
+     <li class="divider"></li>
+    </ul>
+
+</div>

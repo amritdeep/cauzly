@@ -1,0 +1,110 @@
+<div class="">
+   
+
+    <h3><%= @campaign.title%> <span class="pull-right"> <div class="btn-group">
+        <%= link_to 'Back to campaigns', user_campaigns_path,:class=>"btn" %>
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+    Action 
+    <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+    <li><%= link_to "<i class='icon-film'></i><i class='icon-picture'></i>Add Image And video".html_safe, user_campaign_path(@campaign)%></li> 
+                <li><%= link_to "<i class='icon-pencil'></i>Edit".html_safe, edit_user_campaign_path(@campaign) %></li> 
+                <li><%= link_to "<i class='icon-remove'></i>Remove".html_safe, user_campaign_path(@campaign), confirm: 'Are you sure?', method: :delete %></li>
+    </ul>
+    </div></span></h3>
+
+   
+    <hr>
+    <div class="box">
+        <%= simple_format(@campaign.description)%>
+         <div>
+        <strong>Campaign ends at <em> <%= @campaign.end_date.to_formatted_s(:long)  %></em></strong>
+    </div>
+    </div>
+   
+
+    <% if !@campaign.campaign_images.blank? && @campaign.campaign_images.first.attachment? %>
+
+    <div class="well box">
+        <h3>Images</h3>
+        <div class="row-fluid">
+            <div class="span1">
+                &nbsp;
+            </div>
+            <div class="span11">
+                <div class="">
+
+                    <ul class="thumbnails">
+                        <% @campaign.campaign_images.each do |image| %>
+                        <% if image.attachment.exists?%>
+                        <li>
+                            <div class="thumbnail">
+                                <%= image_tag image.attachment.url(:thumb)%>
+                                <div class="caption">
+                                    <%= link_to "Remove", removeimage_user_campaign_path(@campaign,image.id),confirm: 'Are you sure?', method: :delete %>
+                                </div>
+                            </div>
+                        </li>
+                        <%end%>
+                        <%end%>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%end%>
+    <% if !@campaign.campaign_videos.blank? && !@campaign.campaign_videos.first.video_url.blank? %>
+    
+    
+    <div class="well box">
+        
+                <h3>Videos</h3>
+                <hr />
+                <ul class="thumbnails">
+                    <% @campaign.campaign_videos.each do |video| %>
+                    <% if video.video_url?%>
+                    <li class="">
+                        <div class="thumbnail  ">
+                            <div class="user_video">
+                                <%= video.video_url_html  %>
+                            </div>
+                            <div class="caption">
+                                <div class="btn-group">
+                                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> Video title <span class="caret"></span> </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <div class="well-small">
+                                                <%= video.video_title%>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <%= link_to "Remove", removevideo_user_campaign_path(@campaign,video.id),confirm: 'Are you sure?', method: :delete ,:class=>"btn"%>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+                    <% end %>
+                    <% end %>
+                </ul>
+
+         
+    </div>
+
+
+<% end %>
+<div class="box">
+    <div class="row-fluid">
+        <div class="span6">
+
+            <%= render :partial =>"campaign_image_form"%>
+        </div>
+        <div class="span6">
+            <%= render :partial => "campaign_video_form"%>
+        </div>
+    </div>
+</div>
+</div>

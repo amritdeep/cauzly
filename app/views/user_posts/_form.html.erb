@@ -1,0 +1,19 @@
+
+ <%=form_tag(user_posts_path, :class=>"ajax",:remote => true, :id => 'user_post_form') do%>
+  <%= hidden_field_tag :user_id, current_user.id%>
+  <div class="row-fluid">
+  	<div class="span12 fleft">
+  <%= text_area :user_post, :post,{:class=>"inputbox",:placeholder=>"Update your status in 200 characters",:size=>"70x2"}%>
+  <%= submit_tag('Update',:class=>"postsubmit btn btn-primary  pull-left")%>
+  </div>
+  </div>
+  <div class="row-fluid">
+  	<div class="span8 ">&nbsp;
+  		<span class="inputerror"></span>
+  	</div>
+  	<div class="span4">
+  	
+  	</div>
+  </div>
+  <% end %>
+ 

@@ -1,0 +1,41 @@
+<div class ="box">
+	<h3>Donations</h3>
+	<hr />
+	<div class="wordwrap">
+		<%if  !@donor_details.blank?%>
+		<table class="table table-bordered table-condensed">
+			<tr class="yellow">
+				<th>Date</th>
+				<th>Donated To</th>
+				<th>Amount</th>
+			</tr>
+			<% @donor_details.each do |details| %>
+			<tr>
+				<td><%= details.created_at.strftime("%m-%d-%Y") %></td>
+				<td> <% if details.donatable_type=="User"%>
+				<% user=details.donatable %>
+				<%= link_to user.profile.name,profile_path(user),:target => "_blank"  unless user.profile.blank?%>
+				<%end%>
+
+				<% if details.donatable_type=="Campaign"%>
+				<% campaign= details.donatable
+          			user=campaign.user %>
+
+				<%= link_to user.profile.name,profile_path(user),:target => "_blank"  unless user.profile.blank?%>
+				(<%= link_to campaign.title,campaign_path(campaign),:target => "_blank" %>)
+				<%end%>
+				<% if details.donatable_type=="ApiNonprofit"%>
+				<%= details.donatable.name unless details.donatable.blank?%> , <%= details.donatable.full_address unless details.donatable.blank?%>
+				<%end%> </td>
+				<td><%= number_to_currency(details.amount, :precision => 2)  %></td>
+			</tr>
+			<% end %>
+			<% else %>
+			<div class="alert">
+				You haven't made any donations.
+			</div>
+			<% end%>
+		</table>
+		<%= will_paginate @donor_details ,:renderer => BootstrapLinkRenderer %>
+	</div>
+</div>
